@@ -22,7 +22,6 @@ namespace BankingSystem.ViewModel
         private readonly IReportingService _reportingService;
         private UserControl? _currentView;
 
-        public ObservableCollection<Customer> Customers { get; set; }
         public ICommand LoadDashboardViewCommand { get; }
         public ICommand LoadRegisterViewCommand { get; }
         public ICommand LoadLoginViewCommand { get; }
@@ -39,10 +38,10 @@ namespace BankingSystem.ViewModel
             _accountService = accountService;
             _bankProdService = bankProdService;
             _reportingService = reportingService;
-            Customers = new ObservableCollection<Customer>();
             LoadDashboardViewCommand = new RelayCommand(o => CurrentView = new DashboardView(reportingService));
             LoadRegisterViewCommand = new RelayCommand(o => CurrentView = new RegisterView());
             LoadLoginViewCommand = new RelayCommand(o => CurrentView = new LoginView());
+            CurrentView = new HomeView();
         }
     }
 }

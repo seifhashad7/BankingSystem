@@ -93,6 +93,16 @@ namespace BankingSystem.Data.Services
         {
             return _appDbContext.Customers.Count();
         }
+
+        public int GetTotalSalaryAccounts()
+        {
+            return _appDbContext.SalaryAccounts.Count();
+        }
+        public int GetTotalSavingAccounts()
+        {
+            return _appDbContext.SavingAccounts.Count();
+        }
+
         public int GetTotalCreditCards()
         {
             return _appDbContext.BankServices.OfType<CreditCard>().Count();
@@ -119,9 +129,27 @@ namespace BankingSystem.Data.Services
         {
             return _appDbContext.Accounts.ToList();
         }
+
+        public IEnumerable<SalaryAccount> GetSalaryAccounts()
+        {
+            return _appDbContext.Accounts.OfType<SalaryAccount>().ToList();
+        }
+        public IEnumerable<SavingAccount> GetSavingAccounts()
+        {
+            return _appDbContext.Accounts.OfType<SavingAccount>().ToList();
+        }
+
         public IEnumerable<BankService> GetServices()
         {
             return _appDbContext.BankServices.ToList();
+        }
+        public IEnumerable<CreditCard> GetCreditCards()
+        {
+            return _appDbContext.BankServices.OfType<CreditCard>().ToList();
+        }
+        public IEnumerable<Certificate> GetCertificates()
+        {
+            return _appDbContext.BankServices.OfType<Certificate>().ToList();
         }
     }
 }

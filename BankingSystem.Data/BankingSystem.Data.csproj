@@ -104,14 +104,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202605251852290_IntialCreate.cs" />
-    <Compile Include="Migrations\202605251852290_IntialCreate.Designer.cs">
-      <DependentUpon>202605251852290_IntialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202605290313489_InitialCreate.cs" />
+    <Compile Include="Migrations\202605290313489_InitialCreate.Designer.cs">
+      <DependentUpon>202605290313489_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605290427401_UpdateAccountSchema.cs" />
+    <Compile Include="Migrations\202605290427401_UpdateAccountSchema.Designer.cs">
+      <DependentUpon>202605290427401_UpdateAccountSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202605290431570_UpdateAccountSchema1.cs" />
+    <Compile Include="Migrations\202605290431570_UpdateAccountSchema1.Designer.cs">
+      <DependentUpon>202605290431570_UpdateAccountSchema1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Services\BankProdService.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\ReportingService.cs" />
@@ -127,8 +135,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202605251852290_IntialCreate.resx">
-      <DependentUpon>202605251852290_IntialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202605290313489_InitialCreate.resx">
+      <DependentUpon>202605290313489_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605290427401_UpdateAccountSchema.resx">
+      <DependentUpon>202605290427401_UpdateAccountSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605290431570_UpdateAccountSchema1.resx">
+      <DependentUpon>202605290431570_UpdateAccountSchema1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

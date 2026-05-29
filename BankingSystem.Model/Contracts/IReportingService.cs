@@ -14,14 +14,18 @@ namespace BankingSystem.Model.Contracts
         IEnumerable<Account> GetCustomerAccounts(int customerId);
         decimal GetCustomerTotalBalance(int customerId);
         int GetTotalCustomers();
+        int GetTotalSalaryAccounts();
+        int GetTotalSavingAccounts();
         int GetTotalCreditCards();
         int GetTotalCertificates();
         int GetTotalTransactions();
-
         int GetTotalTransactionPerCustomer(int customerId);
-
         IEnumerable<Customer> GetCustomers();
         IEnumerable<Account> GetAccounts();
+        IEnumerable<SalaryAccount> GetSalaryAccounts();
+        IEnumerable<SavingAccount> GetSavingAccounts();
         IEnumerable<BankService> GetServices();
+        IEnumerable<CreditCard> GetCreditCards();
+        IEnumerable<Certificate> GetCertificates();
     }
 }

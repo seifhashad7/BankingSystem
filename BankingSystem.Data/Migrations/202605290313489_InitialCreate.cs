@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class IntialCreate : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -15,13 +15,12 @@
                         Balance = c.Decimal(nullable: false, precision: 18, scale: 2),
                         CreatedAt = c.DateTime(nullable: false, precision: 0),
                         CustomerId = c.Int(nullable: false),
-                        AccountType = c.Int(nullable: false),
                         EmployerName = c.String(unicode: false),
                         LastSalaryCreditDate = c.DateTime(precision: 0),
                         IsZeroBalancedAccount = c.Boolean(),
                         InterestRate = c.Decimal(precision: 18, scale: 2),
                         MinimumBalance = c.Decimal(precision: 18, scale: 2),
-                        Discriminator = c.Int(nullable: false),
+                        AccountType = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Customers", t => t.CustomerId, cascadeDelete: true)

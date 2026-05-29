@@ -10,10 +10,33 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Button Content="Load Customers" Command="{Binding LoadCustomersDataCommand}" Width="120" HorizontalAlignment="Left" Padding="5"/>
+        <WrapPanel Grid.Row="0">
+            <WrapPanel.Resources>
+                <Style TargetType="Button">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Width" Value="auto"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="Padding" Value="3"/>
+                    </Style.Setters>
+                </Style>
+            </WrapPanel.Resources>
+            <Button Content="Load Customers" Command="{Binding LoadCustomersDataCommand}"/>
+            <Button Content="Load Accounts" Command="{Binding LoadAccountsDataCommand}"/>
+            <Button Content="Load Salary Accounts" Command="{Binding LoadSalaryAccDataCommand}"/>
+            <Button Content="Load Saving Accounts" Command="{Binding LoadSavingAccDataCommand}"/>
+            <Button Content="Load Services" Command="{Binding LoadServicesDataCommand}"/>
+            <Button Content="Load Credit Cards" Command="{Binding LoadCreditCardsDataCommand}"/>
+            <Button Content="Load Certificates" Command="{Binding LoadACertificatesDataCommand}"/>
+            <Button Content="Show All Statistics" Command="{Binding LoadStatsCommand}"/>
+        </WrapPanel>
 
-        <DataGrid Grid.Row="1" Margin="0,10,0,0" ItemsSource="{Binding Customers}" AutoGenerateColumns="True" IsReadOnly="True"/>
+        <DataGrid x:Name="MainDisplayGrid" Grid.Row="1" Margin="0,10,0,0" ItemsSource="{Binding CurrentGridData}" AutoGenerateColumns="True" IsReadOnly="True"/>
+        <ContentControl Grid.Column="1" Content="{Binding CurrentView}"></ContentControl>
+        
+        <Button Grid.Row="2" Width="100" Margin="0 5 0 0" Command="{Binding LoadHomeViewCommand}"> Back </Button>
     </Grid>
 </UserControl>

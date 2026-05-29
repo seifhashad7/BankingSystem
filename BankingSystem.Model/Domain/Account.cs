@@ -15,7 +15,6 @@ namespace BankingSystem.Model.Domain
 
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public AccountType AccountType { get; set; }
     }
 }
  

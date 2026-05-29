@@ -41,8 +41,8 @@ namespace BankingSystem.Data
 
             //(TPH) Account inheritence
             modelBuilder.Entity<Account>()
-                .Map<SavingAccount>(m => m.Requires("Discriminator").HasValue((int)BankingSystem.Model.CrossCutting.AccountType.Saving))
-                .Map<SalaryAccount>(m => m.Requires("Discriminator").HasValue((int)BankingSystem.Model.CrossCutting.AccountType.Salary))
+                .Map<SavingAccount>(m => m.Requires("AccountType").HasValue((int)BankingSystem.Model.CrossCutting.AccountType.Saving))
+                .Map<SalaryAccount>(m => m.Requires("AccountType").HasValue((int)BankingSystem.Model.CrossCutting.AccountType.Salary))
                 .ToTable("Accounts");
 
             modelBuilder.Entity<Account>().HasRequired(a => a.Customer).WithMany().HasForeignKey(a => a.CustomerId);

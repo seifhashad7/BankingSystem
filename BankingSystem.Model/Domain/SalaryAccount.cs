@@ -9,7 +9,7 @@ namespace BankingSystem.Model.Domain
     public class SalaryAccount : Account
     {
         public string EmployerName { get; set; }
-        public DateTime LastSalaryCreditDate { get; set; }
-        public bool IsZeroBalancedAccount { get; set; }
+        public DateTime? LastSalaryCreditDate { get; set; }
+        public bool? IsZeroBalancedAccount { get; set; }
     }
 }

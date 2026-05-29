@@ -18,5 +18,10 @@ namespace BankingSystem.Model.Domain
         public string PhoneNumber { get; set; }
 
         public string NationalId { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
