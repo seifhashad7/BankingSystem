@@ -55,6 +55,7 @@ namespace BankingSystem.Data.Services
                 }
 
                 return _appDbContext.Accounts
+                    .Include(a => a.Customer)
                     .Where(a => a.CustomerId == customerId)
                     .OrderByDescending(a => a.Customer.Id)
                     .ToList();
@@ -96,20 +97,20 @@ namespace BankingSystem.Data.Services
 
         public int GetTotalSalaryAccounts()
         {
-            return _appDbContext.SalaryAccounts.Count();
+            return _appDbContext.SalaryAccounts.Include(s => s.Customer).Count();
         }
         public int GetTotalSavingAccounts()
         {
-            return _appDbContext.SavingAccounts.Count();
+            return _appDbContext.SavingAccounts.Include(s => s.Customer).Count();
         }
 
         public int GetTotalCreditCards()
         {
-            return _appDbContext.BankServices.OfType<CreditCard>().Count();
+            return _appDbContext.BankServices.OfType<CreditCard>().Include(c => c.Customer).Count();
         }
         public int GetTotalCertificates()
         {
-            return _appDbContext.BankServices.OfType<Certificate>().Count();
+            return _appDbContext.BankServices.OfType<Certificate>().Include(c => c.Customer).Count();
         }
 
         public int GetTotalTransactions()
@@ -127,29 +128,29 @@ namespace BankingSystem.Data.Services
         }
         public IEnumerable<Account> GetAccounts()
         {
-            return _appDbContext.Accounts.ToList();
+            return _appDbContext.Accounts.Include(a => a.Customer).ToList();
         }
 
         public IEnumerable<SalaryAccount> GetSalaryAccounts()
         {
-            return _appDbContext.Accounts.OfType<SalaryAccount>().ToList();
+            return _appDbContext.Accounts.OfType<SalaryAccount>().Include(s => s.Customer).ToList();
         }
         public IEnumerable<SavingAccount> GetSavingAccounts()
         {
-            return _appDbContext.Accounts.OfType<SavingAccount>().ToList();
+            return _appDbContext.Accounts.OfType<SavingAccount>().Include(s => s.Customer).ToList();
         }
 
         public IEnumerable<BankService> GetServices()
         {
-            return _appDbContext.BankServices.ToList();
+            return _appDbContext.BankServices.Include(s => s.Customer).ToList();
         }
         public IEnumerable<CreditCard> GetCreditCards()
         {
-            return _appDbContext.BankServices.OfType<CreditCard>().ToList();
+            return _appDbContext.BankServices.OfType<CreditCard>().Include(s => s.Customer).ToList();
         }
         public IEnumerable<Certificate> GetCertificates()
         {
-            return _appDbContext.BankServices.OfType<Certificate>().ToList();
+            return _appDbContext.BankServices.OfType<Certificate>().Include(s => s.Customer).ToList();
         }
     }
 }

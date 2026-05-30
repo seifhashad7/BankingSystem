@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace BankingSystem.Views
 {
     /// <summary>
-    /// Interaction logic for RegisterView.xaml
+    /// Interaction logic for EditAccountView.xaml
     /// </summary>
-    public partial class RegisterView : UserControl
+    public partial class EditAccountView : UserControl
     {
-        public RegisterView()
+        public EditAccountView()
         {
             InitializeComponent();
         }

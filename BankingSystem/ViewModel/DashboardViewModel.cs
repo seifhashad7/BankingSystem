@@ -107,10 +107,6 @@ namespace BankingSystem.ViewModel
             CurrentGridData = Accounts;
         }
 
-
-        //public ICommand LoadCreditCardsDataCommand { get; }
-        //public ICommand LoadACertificatesDataCommand { get; }
-
         private void ExecuteLoadSalaryAccData(object o)
         {
             Accounts = new ObservableCollection<Account>(_reportingService.GetSalaryAccounts());

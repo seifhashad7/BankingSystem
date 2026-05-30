@@ -28,10 +28,11 @@ namespace BankingSystem
             //Manual Dependency injection of needed services
             var dbContext = new AppDbContext();
             var logger = new Logger();
+            ICustomerService customerService = new CustomerService(dbContext, logger);
             IAccountService accountService = new AccountService(dbContext, logger);
             IBankProdService bankProdService = new BankProdService(dbContext, logger);
             IReportingService reportingService = new ReportingService(dbContext, logger);
-            DataContext = new MainViewModel(dbContext, accountService, bankProdService, reportingService);
+            DataContext = new MainViewModel(dbContext, customerService, accountService, bankProdService, reportingService);
         }
     }
 }

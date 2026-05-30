@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BankingSystem.Data;
+using BankingSystem.Data.Services;
+using BankingSystem.Model.Contracts;
+using BankingSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -14,13 +18,14 @@ using System.Windows.Shapes;
 namespace BankingSystem.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for CreateAccountView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class CreateAccountView : UserControl
     {
-        public LoginView()
+        public CreateAccountView(ICustomerService customerService, IAccountService accountService)
         {
             InitializeComponent();
+            DataContext = new AccountViewModel(customerService, accountService);
         }
     }
 }

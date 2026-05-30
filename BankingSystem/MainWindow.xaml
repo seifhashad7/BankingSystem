@@ -33,8 +33,8 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Command="{Binding LoadDashboardViewCommand}">Go to Dashboard</Button>
-                <Button Command="{Binding LoadRegisterViewCommand}">Register</Button>
-                <Button Command="{Binding LoadLoginViewCommand}">Login</Button>
+                <Button Command="{Binding LoadCreateAccountViewCommand}">Create Account</Button>
+                <Button Command="{Binding LoadEditAccountViewCommand}">Edit Account</Button>
             </StackPanel>
             <ContentControl Grid.Column="1" Content="{Binding CurrentView}"></ContentControl>
         </Grid>

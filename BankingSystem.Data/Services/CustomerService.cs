@@ -1,5 +1,6 @@
 ﻿using BankingSystem.Model.Contracts;
 using BankingSystem.Model.CrossCutting;
+using BankingSystem.Model.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,24 @@ namespace BankingSystem.Data.Services
         {
             _appDbContext = appDbContext;
             _logger = logger;
+        }
+
+        public Customer RegisterCustomer(string name, int age, Gender gender, string address, string nationalId, string phoneNumber)
+        {
+            Customer newCustomer = new Customer
+            {
+                Name = name,
+                Age = age,
+                Gender = gender,
+                Address = address,
+                NationalId = nationalId,
+                PhoneNumber = phoneNumber
+            };
+
+            _appDbContext.Customers.Add(newCustomer);
+            _appDbContext.SaveChanges();
+
+            return newCustomer;
         }
 
         public void EditCustomerInfo(int customerId, string newName, int newAge, Gender newGender, string newAddress, string newNationalId, string newPhoneNumber)
