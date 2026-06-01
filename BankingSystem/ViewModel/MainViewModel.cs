@@ -26,6 +26,9 @@ namespace BankingSystem.ViewModel
         public ICommand LoadDashboardViewCommand { get; }
         public ICommand LoadCreateAccountViewCommand { get; }
         public ICommand LoadEditAccountViewCommand { get; }
+        public ICommand LoadCloseAccountViewCommand { get; }
+
+        public ICommand LoadAccountOperationViewCommand { get; }
 
         public UserControl CurrentView
         {
@@ -41,7 +44,9 @@ namespace BankingSystem.ViewModel
             _reportingService = reportingService;
             LoadDashboardViewCommand = new RelayCommand(o => CurrentView = new DashboardView(reportingService));
             LoadCreateAccountViewCommand = new RelayCommand(o => CurrentView = new CreateAccountView(customerService, accountService));
-            LoadEditAccountViewCommand = new RelayCommand(o => CurrentView = new EditAccountView());
+            LoadEditAccountViewCommand = new RelayCommand(o => CurrentView = new EditCustomerView(customerService, accountService));
+            LoadCloseAccountViewCommand = new RelayCommand(o => CurrentView = new CloseAccountView(customerService, accountService));
+            LoadAccountOperationViewCommand = new RelayCommand(o => CurrentView = new AccountOperationView(accountService));
             CurrentView = new HomeView();
         }
     }

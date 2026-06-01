@@ -17,6 +17,7 @@ namespace BankingSystem.ViewModel
         private ICustomerService _customerService;
         private IAccountService _accountService;
 
+        private int _id;
         private string? _name;
         private int _age;
         private string? _nationalId;
@@ -34,6 +35,11 @@ namespace BankingSystem.ViewModel
         public ICommand SubmitCommand { get; }
         public ICommand BackCommand { get; }
 
+        public int Id
+        {
+            get => _id;
+            set => SetProperty(ref _id, value);
+        }
         public string Name
         {
             get => _name;
@@ -46,7 +52,7 @@ namespace BankingSystem.ViewModel
         }
         public string NationalId
         {
-            get => _name;
+            get => _nationalId;
             set => SetProperty(ref _nationalId, value);
         }
         public Gender Gender
@@ -112,17 +118,31 @@ namespace BankingSystem.ViewModel
 
         private void ExecuteSubmitButton(object o)
         {
-            if (IsMaleSelected) Gender = Gender.Male;
-            else Gender = Gender.Female;
+            string activeView = o as string;
+            if(activeView == "CreateMode")
+            {
+                if (IsMaleSelected) Gender = Gender.Male;
+                else Gender = Gender.Female;
 
-            if (IsSalaryAccSelected) AccountType = AccountType.Salary;
-            else AccountType = AccountType.Saving;
+                if (IsSalaryAccSelected) AccountType = AccountType.Salary;
+                else AccountType = AccountType.Saving;
 
-            var newCustomer = _customerService.RegisterCustomer(Name, Age, Gender, Address, NationalId, PhoneNumber);
+                var newCustomer = _customerService.RegisterCustomer(Name, Age, Gender, Address, NationalId, PhoneNumber);
 
-            _accountService.OpenAccount(newCustomer.Id, AccountType, InitialBalance);
+                _accountService.OpenAccount(newCustomer.Id, AccountType, InitialBalance);
 
-            MessageBox.Show("Account Created successfully!");
+                MessageBox.Show("Account Created successfully!");
+            }
+            else if(activeView == "EditMode")
+            {
+                _customerService.EditCustomerInfo(Id, Name, Age, Gender, Address, NationalId, PhoneNumber);
+                MessageBox.Show("Customer info edited successfully");
+            }
+            else if(activeView == "CloseMode")
+            {
+                _accountService.CloseAccount(Id);
+                MessageBox.Show("Account Closed successfully");
+            }
         }
         private void ExecuteBackButton(object o)
         {

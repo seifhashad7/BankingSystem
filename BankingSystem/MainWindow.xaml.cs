@@ -3,6 +3,7 @@ using BankingSystem.Data.Services;
 using BankingSystem.Model.Contracts;
 using BankingSystem.Model.Logging;
 using BankingSystem.ViewModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace BankingSystem
 {
@@ -24,7 +26,7 @@ namespace BankingSystem
         public MainWindow()
         {
             InitializeComponent();
-            
+
             //Manual Dependency injection of needed services
             var dbContext = new AppDbContext();
             var logger = new Logger();

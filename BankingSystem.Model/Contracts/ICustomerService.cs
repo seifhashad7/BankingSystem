@@ -11,6 +11,6 @@ namespace BankingSystem.Model.Contracts
     public interface ICustomerService
     {
         Customer RegisterCustomer(string name, int age, Gender gender, string address, string nationalId, string phoneNumber);
-        void EditCustomerInfo(int customerId, string newName, int newAge, Gender newGender, string newAddress, string newNationalId, string newPhoneNumber);
+        void EditCustomerInfo(int customerId, string newName, int? newAge, Gender? newGender, string newAddress, string newNationalId, string newPhoneNumber);
     }
 }

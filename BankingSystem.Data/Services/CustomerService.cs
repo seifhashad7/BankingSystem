@@ -38,7 +38,7 @@ namespace BankingSystem.Data.Services
             return newCustomer;
         }
 
-        public void EditCustomerInfo(int customerId, string newName, int newAge, Gender newGender, string newAddress, string newNationalId, string newPhoneNumber)
+        public void EditCustomerInfo(int customerId, string newName, int? newAge, Gender? newGender, string newAddress, string newNationalId, string newPhoneNumber)
         {
             try
             {
@@ -50,11 +50,11 @@ namespace BankingSystem.Data.Services
                 }
 
                 if(newName != null) customer.Name = newName;
-                if(newAge > 0) customer.Age = newAge;
-                if(Enum.IsDefined(typeof(Gender), newGender)) customer.Gender = newGender;
-                if(newAddress != string.Empty) customer.Address = newAddress;
-                if(newNationalId != string.Empty) customer.NationalId = newNationalId;
-                if(newPhoneNumber != string.Empty) customer.PhoneNumber = newPhoneNumber;
+                if(newAge.HasValue) customer.Age = newAge.Value;
+                if(newGender.HasValue) customer.Gender = newGender.Value;
+                if(newAddress != null) customer.Address = newAddress;
+                if(newNationalId != null) customer.NationalId = newNationalId;
+                if(newPhoneNumber != null) customer.PhoneNumber = newPhoneNumber;
 
                 _appDbContext.SaveChanges();
                 _logger.LogInfo($"Customer with ID: {customerId} info is updated!");

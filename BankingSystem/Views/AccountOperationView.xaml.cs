@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BankingSystem.Model.Contracts;
+using BankingSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -14,13 +16,14 @@ using System.Windows.Shapes;
 namespace BankingSystem.Views
 {
     /// <summary>
-    /// Interaction logic for EditAccountView.xaml
+    /// Interaction logic for AccountOperationView.xaml
     /// </summary>
-    public partial class EditAccountView : UserControl
+    public partial class AccountOperationView : UserControl
     {
-        public EditAccountView()
+        public AccountOperationView(IAccountService accountService)
         {
             InitializeComponent();
+            DataContext = new AccountOperationViewModel(accountService);
         }
     }
 }
