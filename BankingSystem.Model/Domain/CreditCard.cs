@@ -8,15 +8,11 @@ namespace BankingSystem.Model.Domain
 {
     public class CreditCard : BankService
     {
-        public CreditCard() : base()
+        public CreditCard()
         {
             PeriodInYears = 10;
         }
 
         public decimal CashLimit { get; set; } // 50k - 250k
-        public void UpdateLimit(decimal newLimit)
-        {
-
-        }
     }
 }

@@ -1,0 +1,4 @@
+[2026-05-31 08:51:05] [OPERATION] : Depoist AccountId: 4, Amount: 500
+[2026-05-31 08:51:05] [INFO] Account opened for CustomerId: 4, Account type: Saving
+[2026-06-01 03:17:47] [OPERATION] : Depoist AccountId: 5, Amount: 20000
+[2026-06-01 03:17:47] [INFO] Account opened for CustomerId: 5, Account type: Salary

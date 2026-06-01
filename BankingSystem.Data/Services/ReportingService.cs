@@ -21,6 +21,10 @@ namespace BankingSystem.Data.Services
             _logger = logger;
         }
 
+        public IEnumerable<Transaction> GetAllTransactions()
+        {
+            return _appDbContext.Transactions.ToList();
+        }
 
         public IEnumerable<Transaction> GetCustomerTransactions(int customerId)
         {

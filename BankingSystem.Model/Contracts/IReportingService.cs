@@ -10,6 +10,7 @@ namespace BankingSystem.Model.Contracts
 {
     public interface IReportingService
     {
+        IEnumerable<Transaction> GetAllTransactions();
         IEnumerable<Transaction> GetCustomerTransactions(int customerId);
         IEnumerable<Account> GetCustomerAccounts(int customerId);
         decimal GetCustomerTotalBalance(int customerId);

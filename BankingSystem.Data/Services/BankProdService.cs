@@ -30,7 +30,7 @@ namespace BankingSystem.Data.Services
                     throw new Exception($"The Customer with ID {customerId} already has a credit card! limit is one per user!");
                 }
 
-                if((cashLimit < 50000) || (cashLimit > 250000))
+                if ((cashLimit < 50000) || (cashLimit > 250000))
                 {
                     throw new ArgumentException("Cash limit must be between 50k and 250k.");
                 }
@@ -40,7 +40,6 @@ namespace BankingSystem.Data.Services
                     CustomerId = customerId,
                     CashLimit = cashLimit,
                     IssueDate = DateTime.Now,
-                    PeriodInYears = 10
                 };
 
                 _appDbContext.BankServices.Add(newCreditCard);

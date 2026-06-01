@@ -20,4 +20,13 @@
     <ProjectReference Include="..\BankingSystem.Model\BankingSystem.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\CertificateView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CustomerDashboardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

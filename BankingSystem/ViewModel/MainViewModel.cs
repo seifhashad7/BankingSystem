@@ -24,11 +24,13 @@ namespace BankingSystem.ViewModel
         private UserControl? _currentView;
 
         public ICommand LoadDashboardViewCommand { get; }
+        public ICommand LoadCustomerDashboardViewCommand { get; }
         public ICommand LoadCreateAccountViewCommand { get; }
         public ICommand LoadEditAccountViewCommand { get; }
         public ICommand LoadCloseAccountViewCommand { get; }
-
         public ICommand LoadAccountOperationViewCommand { get; }
+        public ICommand LoadCreditCardViewCommand { get; }
+        public ICommand LoadCertificateViewCommand { get; }
 
         public UserControl CurrentView
         {
@@ -43,10 +45,13 @@ namespace BankingSystem.ViewModel
             _bankProdService = bankProdService;
             _reportingService = reportingService;
             LoadDashboardViewCommand = new RelayCommand(o => CurrentView = new DashboardView(reportingService));
+            LoadCustomerDashboardViewCommand = new RelayCommand(o => CurrentView = new CustomerDashboardView(reportingService));
             LoadCreateAccountViewCommand = new RelayCommand(o => CurrentView = new CreateAccountView(customerService, accountService));
             LoadEditAccountViewCommand = new RelayCommand(o => CurrentView = new EditCustomerView(customerService, accountService));
             LoadCloseAccountViewCommand = new RelayCommand(o => CurrentView = new CloseAccountView(customerService, accountService));
             LoadAccountOperationViewCommand = new RelayCommand(o => CurrentView = new AccountOperationView(accountService));
+            LoadCreditCardViewCommand = new RelayCommand(o => CurrentView = new CreditCardView(bankProdService));
+            LoadCertificateViewCommand = new RelayCommand(o => CurrentView = new CertificateView(bankProdService));
             CurrentView = new HomeView();
         }
     }
