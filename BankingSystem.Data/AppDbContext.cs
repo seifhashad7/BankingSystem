@@ -1,4 +1,4 @@
-﻿using BankingSystem.Model;
+using BankingSystem.Model;
 using BankingSystem.Model.Domain;
 using MySql.Data.EntityFramework;
 using System;
@@ -18,17 +18,17 @@ namespace BankingSystem.Data
             Database.SetInitializer(new CreateDatabaseIfNotExists<AppDbContext>());
         }
 
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<SavingAccount> SavingAccounts { get; set; }
-        public DbSet<SalaryAccount> SalaryAccounts { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<SavingAccount> SavingAccounts { get; set; }
+        public virtual DbSet<SalaryAccount> SalaryAccounts { get; set; }
 
-        public DbSet<BankService> BankServices { get; set; }
+        public virtual DbSet<BankService> BankServices { get; set; }
 
-        public DbSet<Certificate> Certificatres { get; set; }
-        public DbSet<CreditCard> CreditCards { get; set; }
+        public virtual DbSet<Certificate> Certificatres { get; set; }
+        public virtual DbSet<CreditCard> CreditCards { get; set; }
 
-        public DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

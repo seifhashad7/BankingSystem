@@ -1,4 +1,4 @@
-﻿using BankingSystem.Model.Contracts;
+using BankingSystem.Model.Contracts;
 using BankingSystem.Model.Domain;
 using System;
 using System.Collections.Generic;
@@ -66,10 +66,33 @@ namespace BankingSystem.Data.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error getting customer transactions!", ex);
+                _logger.LogError("Error getting customer accounts!", ex);
                 return null;
             }
         }
+        public IEnumerable<BankService> GetCustomerServices(int customerId)
+        {
+            try
+            {
+                bool hasCustomerLinked = _appDbContext.BankServices.Any(a => a.CustomerId == customerId);
+                if (!hasCustomerLinked)
+                {
+                    throw new ArgumentNullException($"There's no services linked to a customer with CustomerId {customerId}");
+                }
+
+                return _appDbContext.BankServices
+                    .Include(s => s.Customer)
+                    .Where(s => s.CustomerId == customerId)
+                    .OrderByDescending(a => a.Customer.Id)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error getting customer services!", ex);
+                return null;
+            }
+        }
+
         public decimal GetCustomerTotalBalance(int customerId)
         {
             decimal balance = 0;
@@ -90,9 +113,17 @@ namespace BankingSystem.Data.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error getting customer transactions!", ex);
+                _logger.LogError("Error getting customer total balance!", ex);
                 return 0.0m;
             }
+        }
+        public decimal GetTotalAssets()
+        {
+            decimal accountsSum = _appDbContext.Accounts.Select(a => (decimal?)a.Balance).Sum() ?? 0;
+            decimal certificatesSum = _appDbContext.BankServices.OfType<Certificate>().Select(c => (decimal?)c.PrincipalAmount).Sum() ?? 0;
+            decimal creditCardsSum = _appDbContext.BankServices.OfType<CreditCard>().Select(c => (decimal?)c.CashLimit).Sum() ?? 0;
+            
+            return accountsSum + certificatesSum + creditCardsSum;
         }
         public int GetTotalCustomers()
         {

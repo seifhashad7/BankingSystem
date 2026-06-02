@@ -24,9 +24,11 @@ namespace BankingSystem.ViewModel
         private IEnumerable _currentGridData;
         private ObservableCollection<Transaction> _transactions;
         private ObservableCollection<Account> _accounts;
+        private ObservableCollection<BankService> _bankServices;
 
         public ICommand LoadTransactionsCommand { get; }
         public ICommand LoadAccountsCommand { get; }
+        public ICommand LoadServicesCommand { get; }
         public ICommand LoadTotalBalanceCommand { get; }
         public ICommand LoadTotalTransactionsCommand { get; }
         public ICommand LoadHomeViewCommand { get; }
@@ -55,6 +57,11 @@ namespace BankingSystem.ViewModel
             get => _accounts;
             set => SetProperty(ref _accounts, value);
         }
+        public ObservableCollection<BankService> BankServices
+        {
+            get => _bankServices;
+            set => SetProperty(ref _bankServices, value);
+        }
 
         public UserControl CurrentView
         {
@@ -73,9 +80,9 @@ namespace BankingSystem.ViewModel
             _reportingService = reportingService;
             _transactions = new ObservableCollection<Transaction>();
             _accounts = new ObservableCollection<Account>();
-            //Customers = new ObservableCollection<Customer>();
             LoadTransactionsCommand = new RelayCommand(ExecuteLoadTransactions);
             LoadAccountsCommand = new RelayCommand(ExecuteLoadAccounts);
+            LoadServicesCommand = new RelayCommand(ExecuteLoadServices);
             LoadTotalBalanceCommand = new RelayCommand(ExecuteLoadTotalBalance);
             LoadTotalTransactionsCommand = new RelayCommand(ExecuteLoadTotalTransactions);
             LoadHomeViewCommand = new RelayCommand(ExecuteLoadHomeView);
@@ -91,6 +98,11 @@ namespace BankingSystem.ViewModel
         {
             Accounts = new ObservableCollection<Account>(_reportingService.GetCustomerAccounts(Id));
             CurrentGridData = Accounts;
+        }
+        private void ExecuteLoadServices(object o)
+        {
+            BankServices = new ObservableCollection<BankService>(_reportingService.GetCustomerServices(Id));
+            CurrentGridData = BankServices;
         }
         private void ExecuteLoadTotalBalance(object o)
         {

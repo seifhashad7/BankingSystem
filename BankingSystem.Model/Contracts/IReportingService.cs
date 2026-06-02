@@ -13,7 +13,9 @@ namespace BankingSystem.Model.Contracts
         IEnumerable<Transaction> GetAllTransactions();
         IEnumerable<Transaction> GetCustomerTransactions(int customerId);
         IEnumerable<Account> GetCustomerAccounts(int customerId);
+        IEnumerable<BankService> GetCustomerServices(int customerId);
         decimal GetCustomerTotalBalance(int customerId);
+        decimal GetTotalAssets();
         int GetTotalCustomers();
         int GetTotalSalaryAccounts();
         int GetTotalSavingAccounts();

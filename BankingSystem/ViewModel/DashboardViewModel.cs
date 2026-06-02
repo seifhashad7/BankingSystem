@@ -77,7 +77,7 @@ namespace BankingSystem.ViewModel
         public class TableSet
         {
             public string? Category { get; set; }
-            public int RecordCounts { get; set; }
+            public decimal RecordCounts { get; set; }
         }
 
         public DashboardViewModel(IReportingService reportingService)
@@ -150,7 +150,8 @@ namespace BankingSystem.ViewModel
                 new TableSet { Category="Saving Accounts", RecordCounts= _reportingService.GetTotalSavingAccounts()},
                 new TableSet { Category="Credit Cards", RecordCounts= _reportingService.GetTotalCreditCards()},
                 new TableSet { Category="Certificates", RecordCounts= _reportingService.GetTotalCertificates()},
-                new TableSet { Category="Transactions", RecordCounts= _reportingService.GetTotalTransactions()}
+                new TableSet { Category="Transactions", RecordCounts= _reportingService.GetTotalTransactions()},
+                new TableSet { Category="Assets", RecordCounts= _reportingService.GetTotalAssets()}
             };
 
             CurrentGridData = stats;

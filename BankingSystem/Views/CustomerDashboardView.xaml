@@ -33,6 +33,7 @@
             </WrapPanel.Resources>
             <Button Content="Customer Transactions" Command="{Binding LoadTransactionsCommand}"/>
             <Button Content="Customer Accounts" Command="{Binding LoadAccountsCommand}"/>
+            <Button Content="Customer Services" Command="{Binding LoadServicesCommand}"/>
             <Button Content="Customer Total Balance" Command="{Binding LoadTotalBalanceCommand}"/>
             <Button Content="Total Transactions" Command="{Binding LoadTotalTransactionsCommand}"/>
         </WrapPanel>
