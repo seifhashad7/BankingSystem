@@ -153,7 +153,24 @@ namespace BankingSystem.Data.Services
 
                 if((newPeriod % 2 != 0) && (newPeriod <= 5))
                 {
+                    decimal newInterestRate;
+
+                    switch (newPeriod)
+                    {
+                        case 1:
+                            newInterestRate = 0.10m;
+                            break;
+                        case 3:
+                            newInterestRate = 0.15m;
+                            break;
+                        case 5:
+                            newInterestRate = 0.20m;
+                            break;
+                        default:
+                            throw new ArgumentException("Certificate period should be 1, 3 or 5 years");
+                    }
                     certificate.PeriodInYears = newPeriod;
+                    certificate.InterestRate = newInterestRate;
                 }
                 else
                 {
@@ -168,6 +185,9 @@ namespace BankingSystem.Data.Services
                 {
                     throw new ArgumentException($"Certificate price should be min of 1000 and its multiple");
                 }
+
+                _appDbContext.SaveChanges();
+                _logger.LogInfo($"Certificate with CertificateId: {certificateId}, CustomerId: {customerId} is modified successfully!");
             }
             catch(Exception ex)
             {

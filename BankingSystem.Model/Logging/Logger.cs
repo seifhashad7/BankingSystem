@@ -46,7 +46,7 @@ namespace BankingSystem.Model.Logging
         public void LogError(string error, Exception e = null)
         {
             var errMsg = (e != null) ? $"{error} - Exception: {e.Message}" : error;
-            WriteToFile("WARNING", errMsg);
+            WriteToFile("ERROR", errMsg);
         }
 
         public void LogTransaction(TransactionType transaction, int accountId, decimal amount)

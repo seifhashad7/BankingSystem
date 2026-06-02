@@ -34,7 +34,6 @@ namespace BankingSystem.Data
                 Account newAccount = (accountType == AccountType.Saving) ? (Account) new SavingAccount() : new SalaryAccount();
 
                 newAccount.CustomerId = customerId;
-                newAccount.Balance = initialBalance;
                 newAccount.CreatedAt = DateTime.Now;
 
                 _appDbContext.Accounts.Add(newAccount);

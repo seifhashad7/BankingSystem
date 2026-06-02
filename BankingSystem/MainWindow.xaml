@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BankingSystem"
         xmlns:mvvm="clr-namespace:BankingSystem.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="800">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
