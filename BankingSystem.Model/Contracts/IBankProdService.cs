@@ -11,7 +11,7 @@ namespace BankingSystem.Model.Contracts
     {
         CreditCard IssueCreditCard(int customerId, decimal cashLimit);
         Certificate IssueCertificate(int customerId, int period, decimal principalAmount);
-        void UpdateCreditCardLimit(int customerId, decimal newCreditCardLimit);
+        CreditCard UpdateCreditCardLimit(int customerId, decimal newCreditCardLimit);
         void ModifyCertificate(int customerId, int certificateId, int newPeriod, decimal newPrice);
         void deleteCertificate(int customerId, int certificateId);
     }

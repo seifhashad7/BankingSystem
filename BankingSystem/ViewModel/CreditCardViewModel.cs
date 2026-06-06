@@ -37,17 +37,36 @@ namespace BankingSystem.ViewModel
 
         private void ExecuteIssueCreditCard(object o)
         {
-            var CreditCardIssued = _bankProdService.IssueCreditCard(Id, CashLimit);
-            if (CreditCardIssued != null) MessageBox.Show("New Credit is issued successfully");
-            else MessageBox.Show("Issue Credit card operation is failed");
+            try
+            {
+                var CreditCardIssued = _bankProdService.IssueCreditCard(Id, CashLimit);
+                if (CreditCardIssued != null) MessageBox.Show("New Credit is issued successfully", "Operation success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch(ArgumentException argEx)
+            {
+                MessageBox.Show(argEx.Message, "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch(InvalidOperationException invalidOpEx)
+            {
+                MessageBox.Show(invalidOpEx.Message, "Invalid Operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ExecuteUpdateCashLimit(object o)
         {
-            _bankProdService.UpdateCreditCardLimit(Id, CashLimit);
-            MessageBox.Show("Cash limit is updated successfully");
+            try
+            {
+                _bankProdService.UpdateCreditCardLimit(Id, CashLimit);
+                MessageBox.Show("Cash limit is updated successfully");
+            }
+            catch (ArgumentException argEx)
+            {
+                MessageBox.Show(argEx.Message, "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (InvalidOperationException invalidOpEx)
+            {
+                MessageBox.Show(invalidOpEx.Message, "Invalid Operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-
-
     }
 }

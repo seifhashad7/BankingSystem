@@ -22,19 +22,24 @@ namespace BankingSystem.Data.Services
         public CreditCard IssueCreditCard(int customerId, decimal cashLimit)
         {
             bool hasCreditCard = _appDbContext.BankServices.OfType<CreditCard>().Any(c => c.CustomerId == customerId);
+            var errorMsg = string.Empty;
+
+            if (hasCreditCard)
+            {
+                errorMsg = $"The Customer with ID {customerId} already has a credit card! limit is one per user!";
+                _logger.LogError(errorMsg);
+                throw new InvalidOperationException(errorMsg);
+            }
+
+            if ((cashLimit < 50000) || (cashLimit > 250000))
+            {
+                errorMsg = "Cash limit must be between 50k and 250k.";
+                _logger.LogError(errorMsg);
+                throw new ArgumentException(errorMsg);
+            }
 
             try
             {
-                if (hasCreditCard)
-                {
-                    throw new Exception($"The Customer with ID {customerId} already has a credit card! limit is one per user!");
-                }
-
-                if ((cashLimit < 50000) || (cashLimit > 250000))
-                {
-                    throw new ArgumentException("Cash limit must be between 50k and 250k.");
-                }
-
                 var newCreditCard = new CreditCard
                 {
                     CustomerId = customerId,
@@ -51,7 +56,7 @@ namespace BankingSystem.Data.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error issue new credit card", ex);
+                _logger.LogError("Database write failure while saving new credit card.", ex);
                 return null;
             }            
         }
@@ -104,32 +109,46 @@ namespace BankingSystem.Data.Services
             }
         }
 
-        public void UpdateCreditCardLimit(int customerId, decimal newCreditCardLimit)
+        public CreditCard UpdateCreditCardLimit(int customerId, decimal newCreditCardLimit)
         {
+            bool hasCreditCard = _appDbContext.BankServices.OfType<CreditCard>().Any(c => c.CustomerId == customerId);
+            var errorMsg = string.Empty;
+
+            if (!hasCreditCard)
+            {
+                errorMsg = $"Customer with ID: {customerId} is not found! abort!";
+                _logger.LogError(errorMsg);
+                throw new ArgumentException(errorMsg);
+            }
+
+            var creditCard = _appDbContext.CreditCards.FirstOrDefault(c => c.CustomerId == customerId);
+
+            if (creditCard == null)
+            {
+                errorMsg = $"No Credit card is found for customerId: {customerId}";
+                _logger.LogError(errorMsg);
+                throw new InvalidOperationException(errorMsg);
+            }
+
+            if ((newCreditCardLimit < 50000) || (newCreditCardLimit > 250000))
+            {
+                errorMsg = "Cash limit must be between 50k and 250k.";
+                _logger.LogError(errorMsg);
+                throw new ArgumentException(errorMsg);
+            }
+
             try
             {
-                bool hasCreditCard = _appDbContext.BankServices.OfType<CreditCard>().Any(c => c.CustomerId == customerId);
-
-                if (!hasCreditCard)
-                {
-                    throw new InvalidOperationException($"Customer with ID: {customerId} is not found! abort!");
-                }
-
-                var creditCard = _appDbContext.CreditCards.FirstOrDefault(c => c.CustomerId == customerId);
-
-                if(creditCard == null)
-                {
-                    throw new Exception($"No Credit card is found for customerId: {customerId}");
-                }
-
                 creditCard.CashLimit = newCreditCardLimit;
                 _appDbContext.SaveChanges();
 
                 _logger.LogInfo($"Credit card's limit for CustomerId {customerId} is updated successfully!");
+                return creditCard;
             }
             catch(Exception ex)
             {
-                _logger.LogError("Error updating credit card limit", ex);
+                _logger.LogError("Database write failure while updating the credit card.", ex);
+                return null;
             }
 
         }

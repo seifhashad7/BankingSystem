@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="../BankingSystem.Data/BankingSystem.Data.csproj" Id="2174d46f-896c-4b24-b979-12db4b2b8753" />
   <Project Path="../BankingSystem.Model/BankingSystem.Model.csproj" Id="5bd3208a-a014-4880-8ec1-8bd567eb370e" />
+  <Project Path="../BankingSystem.Tests/BankingSystem.Tests.csproj" Id="5c717c52-3129-4853-beff-3b930ce40652" />
   <Project Path="BankingSystem.csproj" />
 </Solution>
