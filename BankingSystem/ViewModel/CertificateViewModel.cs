@@ -52,9 +52,15 @@ namespace BankingSystem.ViewModel
 
         private void ExecuteIssueCertificate(object o)
         {
-            var IssuedCertificate = _bankProdService.IssueCertificate(CustomerId, Period, PrincipalAmount);
-            if (IssuedCertificate != null) MessageBox.Show("Certificate is issued successfully!");
-            else MessageBox.Show("Certificate Issue operation is failed!");
+            try
+            {
+                var IssuedCertificate = _bankProdService.IssueCertificate(CustomerId, Period, PrincipalAmount);
+                if (IssuedCertificate != null) MessageBox.Show("Certificate is issued successfully!");
+            }
+            catch(ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Invalid input", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ExecuteModifyCertificate(object o)

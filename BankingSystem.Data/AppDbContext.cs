@@ -25,7 +25,7 @@ namespace BankingSystem.Data
 
         public virtual DbSet<BankService> BankServices { get; set; }
 
-        public virtual DbSet<Certificate> Certificatres { get; set; }
+        public virtual DbSet<Certificate> Certificates { get; set; }
         public virtual DbSet<CreditCard> CreditCards { get; set; }
 
         public virtual DbSet<Transaction> Transactions { get; set; }
