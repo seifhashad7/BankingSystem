@@ -1,7 +1,5 @@
-﻿using BankingSystem.Data;
-using BankingSystem.Data.Services;
-using BankingSystem.Model.Contracts;
-using BankingSystem.Model.Logging;
+﻿using Bank.Model.Entities;
+using Bank.Model.Logging;
 using BankingSystem.ViewModel;
 using System.IO;
 using System.Text;
@@ -28,13 +26,9 @@ namespace BankingSystem
             InitializeComponent();
 
             //Manual Dependency injection of needed services
-            var dbContext = new AppDbContext();
             var logger = new Logger();
-            ICustomerService customerService = new CustomerService(dbContext, logger);
-            IAccountService accountService = new AccountService(dbContext, logger);
-            IBankProdService bankProdService = new BankProdService(dbContext, logger);
-            IReportingService reportingService = new ReportingService(dbContext, logger);
-            DataContext = new MainViewModel(dbContext, customerService, accountService, bankProdService, reportingService);
+            BankSystem bankSystem = new BankSystem();
+            DataContext = new MainViewModel(bankSystem);
         }
     }
 }

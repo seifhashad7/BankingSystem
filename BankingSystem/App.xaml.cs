@@ -1,8 +1,4 @@
-﻿using BankingSystem.Data;
-using BankingSystem.Data.Services;
-using BankingSystem.Model.Contracts;
-using BankingSystem.Model.Logging;
-using BankingSystem.ViewModel;
+﻿using BankingSystem.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.EntityFramework;
 using MySql.Data.MySqlClient;

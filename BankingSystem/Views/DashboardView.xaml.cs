@@ -1,7 +1,4 @@
-﻿using BankingSystem.Data;
-using BankingSystem.Data.Services;
-using BankingSystem.Model.Contracts;
-using BankingSystem.Model.Logging;
+﻿using Bank.Model.Entities;
 using BankingSystem.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -23,10 +20,10 @@ namespace BankingSystem.Views
     /// </summary>
     public partial class DashboardView : UserControl
     {
-        public DashboardView(IReportingService reportingService)
+        public DashboardView(BankSystem bankSystem)
         {
             InitializeComponent();
-            DataContext = new DashboardViewModel(reportingService);
+            DataContext = new DashboardViewModel(bankSystem);
         }
     }
 }

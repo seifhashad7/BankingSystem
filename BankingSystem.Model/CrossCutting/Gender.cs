@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace BankingSystem.Model.CrossCutting
-{
-    public enum Gender
-    {
-        Male,
-        Female
-    }
-}
+//namespace BankingSystem.Model.CrossCutting
+//{
+//    public enum Gender
+//    {
+//        Male,
+//        Female
+//    }
+//}

@@ -1,9 +1,6 @@
-﻿using BankingSystem.Commands;
-using BankingSystem.Data;
-using BankingSystem.Data.Services;
-using BankingSystem.Model.Contracts;
-using BankingSystem.Model.Domain;
-using BankingSystem.Model.Logging;
+﻿using Bank.Model.Entities;
+using Bank.Model.Logging;
+using BankingSystem.Commands;
 using BankingSystem.Views;
 using System;
 using System.Collections;
@@ -18,25 +15,25 @@ namespace BankingSystem.ViewModel
 {
     public class DashboardViewModel : ViewModelBase
     {
-        private readonly IReportingService _reportingService;
-        private readonly ILogger _logger;
+        private readonly BankSystem _bankSystem;
+        private readonly Logger _logger;
         private UserControl? _currentView;
         private IEnumerable _currentGridData;
         private ObservableCollection<Customer> _customers;
-        private ObservableCollection<Account> _accounts;
-        private ObservableCollection<BankService> _services;
-        private ObservableCollection<Transaction>  _transactions;
+        //private ObservableCollection<Account> _accounts;
+        //private ObservableCollection<BankService> _services;
+        //private ObservableCollection<Transaction>  _transactions;
 
         public ICommand LoadCustomersDataCommand { get; }
-        public ICommand LoadAccountsDataCommand { get; }
-        public ICommand LoadSalaryAccDataCommand { get; }
-        public ICommand LoadSavingAccDataCommand { get; }
-        public ICommand LoadServicesDataCommand { get; }
-        public ICommand LoadCreditCardsDataCommand { get; }
-        public ICommand LoadACertificatesDataCommand { get; }
-        public ICommand LoadStatsCommand { get; }
-        public ICommand LoadTransactionsCommand { get; }
-        public ICommand LoadHomeViewCommand { get; }
+        //public ICommand LoadAccountsDataCommand { get; }
+        //public ICommand LoadSalaryAccDataCommand { get; }
+        //public ICommand LoadSavingAccDataCommand { get; }
+        //public ICommand LoadServicesDataCommand { get; }
+        //public ICommand LoadCreditCardsDataCommand { get; }
+        //public ICommand LoadACertificatesDataCommand { get; }
+        //public ICommand LoadStatsCommand { get; }
+        //public ICommand LoadTransactionsCommand { get; }
+        //public ICommand LoadHomeViewCommand { get; }
         
         public IEnumerable CurrentGridData
         {
@@ -50,23 +47,23 @@ namespace BankingSystem.ViewModel
             set => SetProperty(ref _customers, value);
         }
 
-        public ObservableCollection<Account> Accounts
-        {
-            get => _accounts;
-            set => SetProperty(ref _accounts, value);
-        }
+        //public ObservableCollection<Account> Accounts
+        //{
+        //    get => _accounts;
+        //    set => SetProperty(ref _accounts, value);
+        //}
 
-        public ObservableCollection<BankService> Services
-        {
-            get => _services;
-            set => SetProperty(ref _services, value);
-        }
+        //public ObservableCollection<BankService> Services
+        //{
+        //    get => _services;
+        //    set => SetProperty(ref _services, value);
+        //}
 
-        public ObservableCollection<Transaction> Transactions
-        {
-            get => _transactions;
-            set => SetProperty(ref _transactions, value);
-        }
+        //public ObservableCollection<Transaction> Transactions
+        //{
+        //    get => _transactions;
+        //    set => SetProperty(ref _transactions, value);
+        //}
 
         public UserControl CurrentView
         {
@@ -80,22 +77,22 @@ namespace BankingSystem.ViewModel
             public decimal RecordCounts { get; set; }
         }
 
-        public DashboardViewModel(IReportingService reportingService)
+        public DashboardViewModel(BankSystem bankSystem)
         {
-            _reportingService = reportingService;
+            _bankSystem = bankSystem;
             _logger = new Logger();
             _customers = new ObservableCollection<Customer>();
             //Customers = new ObservableCollection<Customer>();
             LoadCustomersDataCommand = new RelayCommand(ExecuteLoadCustomersData);
-            LoadAccountsDataCommand = new RelayCommand(ExecuteLoadAccountsData);
-            LoadSalaryAccDataCommand = new RelayCommand(ExecuteLoadSalaryAccData);
-            LoadSavingAccDataCommand = new RelayCommand(ExecuteLoadSavingAccData);
-            LoadServicesDataCommand = new RelayCommand(ExecuteLoadServicesData);
-            LoadCreditCardsDataCommand = new RelayCommand(ExecuteLoadCreditCardsData);
-            LoadACertificatesDataCommand = new RelayCommand(ExecuteLoadCertificatesData);
-            LoadStatsCommand = new RelayCommand(ExecuteLoadStats);
-            LoadHomeViewCommand = new RelayCommand(ExecuteLoadHomeView);
-            LoadTransactionsCommand = new RelayCommand(ExecuteLoadTransactions);
+            //LoadAccountsDataCommand = new RelayCommand(ExecuteLoadAccountsData);
+            //LoadSalaryAccDataCommand = new RelayCommand(ExecuteLoadSalaryAccData);
+            //LoadSavingAccDataCommand = new RelayCommand(ExecuteLoadSavingAccData);
+            //LoadServicesDataCommand = new RelayCommand(ExecuteLoadServicesData);
+            //LoadCreditCardsDataCommand = new RelayCommand(ExecuteLoadCreditCardsData);
+            //LoadACertificatesDataCommand = new RelayCommand(ExecuteLoadCertificatesData);
+            //LoadStatsCommand = new RelayCommand(ExecuteLoadStats);
+            //LoadHomeViewCommand = new RelayCommand(ExecuteLoadHomeView);
+            //LoadTransactionsCommand = new RelayCommand(ExecuteLoadTransactions);
         }
 
         private void ExecuteLoadCustomersData(object o)
@@ -106,65 +103,65 @@ namespace BankingSystem.ViewModel
             //{
             //    Customers.Add(c);
             //}
-            Customers = new ObservableCollection<Customer>(_reportingService.GetCustomers());
+            Customers = new ObservableCollection<Customer>(_bankSystem.GetCustomers());
             CurrentGridData = Customers;
         }
 
-        private void ExecuteLoadAccountsData(object o)
-        {
-            Accounts = new ObservableCollection<Account>(_reportingService.GetAccounts());
-            CurrentGridData = Accounts;
-        }
+        //private void ExecuteLoadAccountsData(object o)
+        //{
+        //    Accounts = new ObservableCollection<Account>(_reportingService.GetAccounts());
+        //    CurrentGridData = Accounts;
+        //}
 
-        private void ExecuteLoadSalaryAccData(object o)
-        {
-            Accounts = new ObservableCollection<Account>(_reportingService.GetSalaryAccounts());
-            CurrentGridData = Accounts;
-        }
-        private void ExecuteLoadSavingAccData(object o)
-        {
-            Accounts = new ObservableCollection<Account>(_reportingService.GetSavingAccounts());
-            CurrentGridData = Accounts;
-        }
-        private void ExecuteLoadServicesData(object o)
-        {
-            Services = new ObservableCollection<BankService>(_reportingService.GetServices());
-            CurrentGridData = Services;
-        }
-        private void ExecuteLoadCreditCardsData(object o)
-        {
-            Services = new ObservableCollection<BankService>(_reportingService.GetCreditCards());
-            CurrentGridData = Services;
-        }
-        private void ExecuteLoadCertificatesData(object o)
-        {
-            Services = new ObservableCollection<BankService>(_reportingService.GetCertificates());
-            CurrentGridData = Services;
-        }
-        private void ExecuteLoadStats(object o)
-        {
-            var stats = new List<TableSet>
-            {
-                new TableSet { Category="Customers", RecordCounts= _reportingService.GetTotalCustomers()},
-                new TableSet { Category="Salary Accounts", RecordCounts= _reportingService.GetTotalSalaryAccounts()},
-                new TableSet { Category="Saving Accounts", RecordCounts= _reportingService.GetTotalSavingAccounts()},
-                new TableSet { Category="Credit Cards", RecordCounts= _reportingService.GetTotalCreditCards()},
-                new TableSet { Category="Certificates", RecordCounts= _reportingService.GetTotalCertificates()},
-                new TableSet { Category="Transactions", RecordCounts= _reportingService.GetTotalTransactions()},
-                new TableSet { Category="Assets", RecordCounts= _reportingService.GetTotalAssets()}
-            };
+        //private void ExecuteLoadSalaryAccData(object o)
+        //{
+        //    Accounts = new ObservableCollection<Account>(_reportingService.GetSalaryAccounts());
+        //    CurrentGridData = Accounts;
+        //}
+        //private void ExecuteLoadSavingAccData(object o)
+        //{
+        //    Accounts = new ObservableCollection<Account>(_reportingService.GetSavingAccounts());
+        //    CurrentGridData = Accounts;
+        //}
+        //private void ExecuteLoadServicesData(object o)
+        //{
+        //    Services = new ObservableCollection<BankService>(_reportingService.GetServices());
+        //    CurrentGridData = Services;
+        //}
+        //private void ExecuteLoadCreditCardsData(object o)
+        //{
+        //    Services = new ObservableCollection<BankService>(_reportingService.GetCreditCards());
+        //    CurrentGridData = Services;
+        //}
+        //private void ExecuteLoadCertificatesData(object o)
+        //{
+        //    Services = new ObservableCollection<BankService>(_reportingService.GetCertificates());
+        //    CurrentGridData = Services;
+        //}
+        //private void ExecuteLoadStats(object o)
+        //{
+        //    var stats = new List<TableSet>
+        //    {
+        //        new TableSet { Category="Customers", RecordCounts= _reportingService.GetTotalCustomers()},
+        //        new TableSet { Category="Salary Accounts", RecordCounts= _reportingService.GetTotalSalaryAccounts()},
+        //        new TableSet { Category="Saving Accounts", RecordCounts= _reportingService.GetTotalSavingAccounts()},
+        //        new TableSet { Category="Credit Cards", RecordCounts= _reportingService.GetTotalCreditCards()},
+        //        new TableSet { Category="Certificates", RecordCounts= _reportingService.GetTotalCertificates()},
+        //        new TableSet { Category="Transactions", RecordCounts= _reportingService.GetTotalTransactions()},
+        //        new TableSet { Category="Assets", RecordCounts= _reportingService.GetTotalAssets()}
+        //    };
 
-            CurrentGridData = stats;
-        }
-        private void ExecuteLoadTransactions(object o)
-        {
-            Transactions = new ObservableCollection<Transaction>(_reportingService.GetAllTransactions());
-            CurrentGridData = Transactions;
-        }
+        //    CurrentGridData = stats;
+        //}
+        //private void ExecuteLoadTransactions(object o)
+        //{
+        //    Transactions = new ObservableCollection<Transaction>(_reportingService.GetAllTransactions());
+        //    CurrentGridData = Transactions;
+        //}
 
-        private void ExecuteLoadHomeView(object o)
-        {
-            CurrentView = new HomeView();
-        }
+        //private void ExecuteLoadHomeView(object o)
+        //{
+        //    CurrentView = new HomeView();
+        //}
     }
 }
