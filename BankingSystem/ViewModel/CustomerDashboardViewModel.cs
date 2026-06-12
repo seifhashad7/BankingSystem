@@ -39,7 +39,7 @@
 //            get => _id;
 //            set => SetProperty(ref _id, value);
 //        }
-        
+
 //        public IEnumerable CurrentGridData
 //        {
 //            get => _currentGridData;

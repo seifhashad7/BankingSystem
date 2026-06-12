@@ -1,5 +1,6 @@
 ﻿using Bank.Model.Entities;
 using Bank.Model.Logging;
+using Bank.Model.Managers;
 using BankingSystem.ViewModel;
 using System.IO;
 using System.Text;
@@ -27,8 +28,9 @@ namespace BankingSystem
 
             //Manual Dependency injection of needed services
             var logger = new Logger();
-            BankSystem bankSystem = new BankSystem();
-            DataContext = new MainViewModel(bankSystem);
+            string connectionString = "server=localhost;database=BankSystemDB;user=deskUser;password=1234;";
+            BankSystem.Initialize(connectionString);
+            DataContext = new MainViewModel(BankSystem.Instance);
         }
     }
 }

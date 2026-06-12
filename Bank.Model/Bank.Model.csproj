@@ -90,21 +90,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\BankSystem.cs" />
-    <Compile Include="DAL\BankRepository.cs" />
+    <Compile Include="Managers\AccountManager.cs" />
+    <Compile Include="Managers\BankSystem.cs" />
+    <Compile Include="DAL\CustomerDAL.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\BankService.cs" />
-    <Compile Include="Entities\Certificate.cs" />
-    <Compile Include="Entities\CreditCard.cs" />
     <Compile Include="Entities\Customer.cs" />
-    <Compile Include="Entities\ReportsManager.cs" />
-    <Compile Include="Entities\SalaryAccount.cs" />
-    <Compile Include="Entities\SavingAccount.cs" />
     <Compile Include="Entities\Transaction.cs" />
-    <Compile Include="Enums\AccountType.cs" />
-    <Compile Include="Enums\Gender.cs" />
-    <Compile Include="Enums\TransactionType.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Managers\CustomerManager.cs" />
+    <Compile Include="Managers\ServiceManager.cs" />
+    <Compile Include="Managers\TransactionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

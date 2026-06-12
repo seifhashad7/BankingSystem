@@ -15,4 +15,18 @@ namespace Bank.Model.Entities
 
         public virtual Customer Customer { get; set; }
     }
+    public class CreditCard : BankService
+    {
+        public CreditCard()
+        {
+            PeriodInYears = 10;
+        }
+
+        public decimal CashLimit { get; set; } // 50k - 250k
+    }
+    public class Certificate : BankService
+    {
+        public decimal PrincipalAmount { get; set; } = 1000; //Multiples of 1000
+        public decimal InterestRate { get; set; } //10% for 1 year, 15% for 3 years and 20% for 5 years
+    }
 }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Bank.Model.Managers;
 
 namespace BankingSystem.ViewModel
 {
@@ -103,7 +104,7 @@ namespace BankingSystem.ViewModel
             //{
             //    Customers.Add(c);
             //}
-            Customers = new ObservableCollection<Customer>(_bankSystem.GetCustomers());
+            Customers = new ObservableCollection<Customer>(_bankSystem.GetAllCustomers());
             CurrentGridData = Customers;
         }
 
