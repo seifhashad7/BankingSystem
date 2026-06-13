@@ -29,6 +29,7 @@ namespace Bank.Model.Managers
         }
 
         public IReadOnlyList<Customer> GetCustomers() => _customerCache.AsReadOnly();
+        public int GetTotalCustomers() => _customerCache.Count();
 
         public Customer RegisterCustomer(Customer customer)
         {
@@ -102,15 +103,7 @@ namespace Bank.Model.Managers
 
             try
             {
-                bool isDeleted = _dal.DeleteCustomer(customerId);
-
-                if(!isDeleted)
-                {
-                    string errorMsg = $"Deletion of Customer {customerId} in database failed.";
-                    _logger.LogError(errorMsg);
-                    throw new InvalidOperationException(errorMsg);
-                }
-
+                _dal.DeleteCustomer(customerId);
                 _customerCache.Remove(_customerCache.FirstOrDefault(c => c.Id == customerId));
                 _logger.LogInfo($"Successfully deleted customer with CustomerId {customerId}");
             }

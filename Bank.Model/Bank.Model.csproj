@@ -101,8 +101,8 @@
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Managers\CustomerManager.cs" />
-    <Compile Include="Managers\ServiceManager.cs" />
-    <Compile Include="Managers\TransactionManager.cs" />
+    <Compile Include="DAL\BankServiceDAL.cs" />
+    <Compile Include="Managers\BankServiceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,8 +23,8 @@ namespace BankingSystem.ViewModel
         public ICommand LoadEditCustomerViewCommand { get; }
         public ICommand LoadCloseAccountViewCommand { get; }
         public ICommand LoadAccountOperationViewCommand { get; }
-        //public ICommand LoadCreditCardViewCommand { get; }
-        //public ICommand LoadCertificateViewCommand { get; }
+        public ICommand LoadCreditCardViewCommand { get; }
+        public ICommand LoadCertificateViewCommand { get; }
 
         public UserControl CurrentView
         {
@@ -41,8 +41,8 @@ namespace BankingSystem.ViewModel
             LoadEditCustomerViewCommand = new RelayCommand(o => CurrentView = new EditCustomerView(bankSystem));
             LoadCloseAccountViewCommand = new RelayCommand(o => CurrentView = new CloseAccountView(bankSystem));
             LoadAccountOperationViewCommand = new RelayCommand(o => CurrentView = new AccountOperationView(bankSystem));
-            //LoadCreditCardViewCommand = new RelayCommand(o => CurrentView = new CreditCardView(bankProdService));
-            //LoadCertificateViewCommand = new RelayCommand(o => CurrentView = new CertificateView(bankProdService));
+            LoadCreditCardViewCommand = new RelayCommand(o => CurrentView = new CreditCardView(bankSystem));
+            LoadCertificateViewCommand = new RelayCommand(o => CurrentView = new CertificateView(bankSystem));
             CurrentView = new HomeView();
         }
     }

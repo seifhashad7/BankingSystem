@@ -61,7 +61,7 @@ namespace Bank.Model.DAL
 
         public int OpenAccount(Account account)
         {
-            string query = "INSERT INTO accounts (CustomerId, AccountType, Balance, CreatedAt) VALUES (@customerid, @accounttype, @balance, @createdat); " +
+            string query = @"INSERT INTO accounts (CustomerId, AccountType, Balance, CreatedAt) VALUES (@customerid, @accounttype, @balance, @createdat); " +
                 "SELECT last_insert_id();";
 
             using (MySqlConnection conn = new MySqlConnection(_connectionString))
@@ -78,7 +78,7 @@ namespace Bank.Model.DAL
             }
         }
 
-        public bool DeleteAccount(int accountId)
+        public void DeleteAccount(int accountId)
         {
             string query = "DELETE FROM Accounts where Id=@id";
 
@@ -88,8 +88,7 @@ namespace Bank.Model.DAL
                 conn.Open();
 
                 cmd.Parameters.AddWithValue("@id", accountId);
-                int rowsAffected = Convert.ToInt32(cmd.ExecuteScalar());
-                return rowsAffected > 0;
+                cmd.ExecuteNonQuery();
             }
         }
 

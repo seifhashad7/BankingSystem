@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,6 +16,7 @@ namespace Bank.Model.Managers
         private readonly Logger _logger;
         private readonly CustomerManager _customerManager;
         private readonly AccountManager _accountManager;
+        private readonly BankServiceManager _serviceManager;
 
         //Hidden constructor to avoid creation of multiple objects
         private BankSystem(string connectionString)
@@ -23,6 +24,7 @@ namespace Bank.Model.Managers
             _logger = new Logger();
             _customerManager = new CustomerManager(connectionString, _logger);
             _accountManager = new AccountManager(connectionString, _logger);
+            _serviceManager = new BankServiceManager(connectionString, _logger);
         }
 
         public static void Initialize(string connString)
@@ -32,6 +34,7 @@ namespace Bank.Model.Managers
                 //Refreshing cached data
                 _instance.Value._customerManager.Initialize();
                 _instance.Value._accountManager.Initialize();
+                _instance.Value._serviceManager.Initialize();
                 string errorMsg = "BankSystem is already initialized";
                 _instance.Value._logger.LogError(errorMsg);
                 return;
@@ -42,7 +45,7 @@ namespace Bank.Model.Managers
             _instance.Value._logger.LogInfo("Banking System Initialization Started");
             _instance.Value._customerManager.Initialize();
             _instance.Value._accountManager.Initialize();
-            //TODO: initialize other managers.
+            _instance.Value._serviceManager.Initialize();
             _instance.Value._logger.LogInfo("Banking System Initialization Completed");
         }
 
@@ -63,7 +66,7 @@ namespace Bank.Model.Managers
 
         // --- Customers ---
         public IReadOnlyList<Customer> GetAllCustomers() => _customerManager.GetCustomers();
-
+        public int GetTotalCustomers() => _customerManager.GetTotalCustomers();
         public Customer RegisterCustomer(string name, int age, Gender gender, string address, string nationalId, string phoneNumber)
         {
             Customer newCustomer = new Customer
@@ -169,5 +172,36 @@ namespace Bank.Model.Managers
             return _accountManager.GetTotalTransactionsPerAccount(accountId);
         }
 
+        // --- Bank Services ---
+        public IReadOnlyList<BankService> GetServices() => _serviceManager.GetServices();
+        public IReadOnlyList<CreditCard> GetCreditCards() => _serviceManager.GetCreditCards();
+        public IReadOnlyList<Certificate> GetCertificates() => _serviceManager.GetCertificates();
+        public int GetTotalServices() => _serviceManager.GetTotalServices();
+        public int GetTotalCreditCards() => _serviceManager.GetTotalCreditCards();
+        public int GetTotalCertificates() => _serviceManager.GetTotalCertificates();
+        public CreditCard IssueCreditCard(int customerId, decimal cashLimit)
+        {
+            return _serviceManager.IssueCreditCard(customerId, cashLimit);
+        }
+        public Certificate IssueCertificate(int customerId, int period, decimal principalAmount) 
+        {
+            return _serviceManager.IssueCertificate(customerId, period, principalAmount);
+        }
+        public CreditCard UpdateCreditCardLimit(int customerId, decimal newCreditCardLimit)
+        {
+            return _serviceManager.UpdateCreditCardLimit(customerId, newCreditCardLimit);
+        }
+        public Certificate ModifyCertificate(int customerId, int certificateId, int newPeriod, decimal newPrice) 
+        {
+            return _serviceManager.ModifyCertificate(customerId, certificateId, newPeriod, newPrice);
+        } 
+        public void deleteCertificate(int customerId, int certificateId) 
+        {
+            _serviceManager.deleteCertificate(customerId, certificateId);
+        }
+        public IReadOnlyList<BankService> GetBankServicesPerCustomer(int customerId)
+        {
+            return _serviceManager.GetBankServicesPerCustomer(customerId);
+        }
     }
 }

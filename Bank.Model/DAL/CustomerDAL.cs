@@ -68,7 +68,7 @@ namespace Bank.Model.DAL
         }
         public int InsertCustomer(Customer customer)
         {
-            string query = "INSERT into customers (Name, Age, Gender, Address, PhoneNumber, NationalId) " +
+            string query = @"INSERT into customers (Name, Age, Gender, Address, PhoneNumber, NationalId) " +
                 "           values (@name, @age, @gender, @address, @phonenumber, @nationalid);" +
                 "SELECT last_insert_id();";
 
@@ -108,9 +108,9 @@ namespace Bank.Model.DAL
             }
         }
 
-        public bool DeleteCustomer(int customerId)
+        public void DeleteCustomer(int customerId)
         {
-            string query = $"DELETE FROM Customers where Id=@id";
+            string query = "DELETE FROM Customers where Id=@id";
 
             using(MySqlConnection conn = new MySqlConnection(_connectionString))
             using(MySqlCommand cmd = new MySqlCommand(query, conn))
@@ -118,8 +118,7 @@ namespace Bank.Model.DAL
                 conn.Open();
 
                 cmd.Parameters.AddWithValue("@id", customerId);
-                int rowsAffected = cmd.ExecuteNonQuery();
-                return rowsAffected > 0;
+                cmd.ExecuteNonQuery();
             }      
         }
     }

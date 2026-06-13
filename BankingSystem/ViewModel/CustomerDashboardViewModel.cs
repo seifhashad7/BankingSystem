@@ -26,7 +26,7 @@ namespace BankingSystem.ViewModel
 
         public ICommand LoadTransactionsCommand { get; }
         public ICommand LoadAccountsCommand { get; }
-        //public ICommand LoadServicesCommand { get; }
+        public ICommand LoadServicesCommand { get; }
         public ICommand LoadTotalBalanceCommand { get; }
         public ICommand LoadTotalTransactionsCommand { get; }
         public ICommand LoadHomeViewCommand { get; }
@@ -85,7 +85,7 @@ namespace BankingSystem.ViewModel
             _accounts = new ObservableCollection<Account>();
             LoadTransactionsCommand = new RelayCommand(ExecuteLoadTransactions);
             LoadAccountsCommand = new RelayCommand(ExecuteLoadAccounts);
-            //LoadServicesCommand = new RelayCommand(ExecuteLoadServices);
+            LoadServicesCommand = new RelayCommand(ExecuteLoadServices);
             LoadTotalBalanceCommand = new RelayCommand(ExecuteLoadTotalBalance);
             LoadTotalTransactionsCommand = new RelayCommand(ExecuteLoadTotalTransactions);
             LoadHomeViewCommand = new RelayCommand(ExecuteLoadHomeView);
@@ -102,11 +102,11 @@ namespace BankingSystem.ViewModel
             Accounts = new ObservableCollection<Account>(_bankSystem.GetAccountsPerCustomer(Id));
             CurrentGridData = Accounts;
         }
-        //private void ExecuteLoadServices(object o)
-        //{
-        //    BankServices = new ObservableCollection<BankService>(_bankSystem.GetCustomerServices(Id));
-        //    CurrentGridData = BankServices;
-        //}
+        private void ExecuteLoadServices(object o)
+        {
+            BankServices = new ObservableCollection<BankService>(_bankSystem.GetBankServicesPerCustomer(Id));
+            CurrentGridData = BankServices;
+        }
         private void ExecuteLoadTotalBalance(object o)
         {
             var TotalBalance = new List<TableSet>
