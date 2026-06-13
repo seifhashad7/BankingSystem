@@ -18,7 +18,7 @@ namespace BankingSystem.ViewModel
         private UserControl? _currentView;
 
         public ICommand LoadDashboardViewCommand { get; }
-        //public ICommand LoadCustomerDashboardViewCommand { get; }
+        public ICommand LoadCustomerDashboardViewCommand { get; }
         public ICommand LoadCreateAccountViewCommand { get; }
         public ICommand LoadEditCustomerViewCommand { get; }
         public ICommand LoadCloseAccountViewCommand { get; }
@@ -36,7 +36,7 @@ namespace BankingSystem.ViewModel
         {
             _bankSystem = bankSystem;
             LoadDashboardViewCommand = new RelayCommand(o => CurrentView = new DashboardView(bankSystem));
-            //LoadCustomerDashboardViewCommand = new RelayCommand(o => CurrentView = new CustomerDashboardView(reportingService));
+            LoadCustomerDashboardViewCommand = new RelayCommand(o => CurrentView = new CustomerDashboardView(bankSystem));
             LoadCreateAccountViewCommand = new RelayCommand(o => CurrentView = new CreateAccountView(bankSystem));
             LoadEditCustomerViewCommand = new RelayCommand(o => CurrentView = new EditCustomerView(bankSystem));
             LoadCloseAccountViewCommand = new RelayCommand(o => CurrentView = new CloseAccountView(bankSystem));

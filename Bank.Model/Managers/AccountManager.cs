@@ -15,11 +15,15 @@ namespace Bank.Model.Managers
         private readonly Logger _logger;
         private readonly AccountDAL _dal;
         private List<Account> _accountCache;
+        private readonly TransactionDAL _transactionDAL;
+        private List<Transaction> _transactionsCache;
 
         public AccountManager(string connectionString, Logger logger)
         {
             _dal = new AccountDAL(connectionString);
             _accountCache = new List<Account>();
+            _transactionDAL = new TransactionDAL(connectionString);
+            _transactionsCache = new List<Transaction>();
             _logger = logger;
         }
 
@@ -27,13 +31,19 @@ namespace Bank.Model.Managers
         {
             _logger.LogInfo("Initializing Account cache from Database.");
             _accountCache = _dal.GetAccounts();
+            _transactionsCache = _transactionDAL.GetTransactions();
         }
 
         public IReadOnlyList<Account> GetAccounts() => _accountCache.AsReadOnly(); 
+        public IReadOnlyList<Transaction> GetTransactions() => _transactionsCache.AsReadOnly();
 
         public int GetTotalAccounts()
         {
             return _accountCache.Count();
+        }
+        public int GetTotalTransactions()
+        {
+            return _transactionsCache.Count();
         }
 
         public int OpenAccount(Account newAccount)
@@ -138,7 +148,7 @@ namespace Bank.Model.Managers
             try
             {
                 _dal.UpdateBalance(accountId, account.Balance);
-                //TODO: Insert a new record into transaction table
+                _transactionDAL.InsertTransaction(transaction);
                 _logger.LogTransaction(transactionType, accountId, amount);
             }
             catch(Exception ex)
@@ -149,6 +159,14 @@ namespace Bank.Model.Managers
                 _logger.LogError(errorMsg, ex);
             }
         }
+        public IReadOnlyList<Transaction> GetTransactionsPerAccount(int accountId)
+        {
+            return _transactionsCache.Where(a => a.AccountId == accountId).ToList().AsReadOnly();
+        }
 
+        public int GetTotalTransactionsPerAccount(int accountId)
+        {
+            return _transactionsCache.Count(a => a.AccountId == accountId);
+        }
     }
 }

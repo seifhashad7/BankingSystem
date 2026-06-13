@@ -23,7 +23,7 @@ namespace BankingSystem.ViewModel
         private ObservableCollection<Customer> _customers;
         private ObservableCollection<Account> _accounts;
         //private ObservableCollection<BankService> _services;
-        //private ObservableCollection<Transaction>  _transactions;
+        private ObservableCollection<Transaction>  _transactions;
 
         public ICommand LoadCustomersDataCommand { get; }
         public ICommand LoadAccountsDataCommand { get; }
@@ -33,7 +33,7 @@ namespace BankingSystem.ViewModel
         //public ICommand LoadCreditCardsDataCommand { get; }
         //public ICommand LoadACertificatesDataCommand { get; }
         //public ICommand LoadStatsCommand { get; }
-        //public ICommand LoadTransactionsCommand { get; }
+        public ICommand LoadTransactionsCommand { get; }
         //public ICommand LoadHomeViewCommand { get; }
 
         public IEnumerable CurrentGridData
@@ -60,11 +60,11 @@ namespace BankingSystem.ViewModel
         //    set => SetProperty(ref _services, value);
         //}
 
-        //public ObservableCollection<Transaction> Transactions
-        //{
-        //    get => _transactions;
-        //    set => SetProperty(ref _transactions, value);
-        //}
+        public ObservableCollection<Transaction> Transactions
+        {
+            get => _transactions;
+            set => SetProperty(ref _transactions, value);
+        }
 
         public UserControl CurrentView
         {
@@ -93,7 +93,7 @@ namespace BankingSystem.ViewModel
             //LoadACertificatesDataCommand = new RelayCommand(ExecuteLoadCertificatesData);
             //LoadStatsCommand = new RelayCommand(ExecuteLoadStats);
             //LoadHomeViewCommand = new RelayCommand(ExecuteLoadHomeView);
-            //LoadTransactionsCommand = new RelayCommand(ExecuteLoadTransactions);
+            LoadTransactionsCommand = new RelayCommand(ExecuteLoadTransactions);
         }
 
         private void ExecuteLoadCustomersData(object o)
@@ -154,11 +154,11 @@ namespace BankingSystem.ViewModel
 
         //    CurrentGridData = stats;
         //}
-        //private void ExecuteLoadTransactions(object o)
-        //{
-        //    Transactions = new ObservableCollection<Transaction>(_reportingService.GetAllTransactions());
-        //    CurrentGridData = Transactions;
-        //}
+        private void ExecuteLoadTransactions(object o)
+        {
+            Transactions = new ObservableCollection<Transaction>(_bankSystem.GetTransactions());
+            CurrentGridData = Transactions;
+        }
 
         //private void ExecuteLoadHomeView(object o)
         //{

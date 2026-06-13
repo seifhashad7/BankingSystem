@@ -146,11 +146,27 @@ namespace Bank.Model.Managers
         }
         public void Depoist(int accountId, decimal amount)
         {
-            _accountManager.PerformTransaction(accountId, amount, TransactionType.Depoist);
+            _accountManager.PerformTransaction(accountId, amount, TransactionType.Depoist);       
         }
         public void Withdraw(int accountId, decimal amount)
         {
             _accountManager.PerformTransaction(accountId, amount, TransactionType.Withdrawal);
+        }
+
+        // --- Transactions ---
+        public IReadOnlyList<Transaction> GetTransactions() => _accountManager.GetTransactions();
+        public int GetTotalTransactions()
+        {
+            return _accountManager.GetTotalTransactions();
+        }
+        public IReadOnlyList<Transaction> GetTransactionsPerAccount(int accountId)
+        {
+            return _accountManager.GetTransactionsPerAccount(accountId);
+        }
+
+        public int GetTotalTransactionsPerAccount(int accountId)
+        {
+            return _accountManager.GetTotalTransactionsPerAccount(accountId);
         }
 
     }
