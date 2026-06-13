@@ -20,9 +20,9 @@ namespace BankingSystem.ViewModel
         public ICommand LoadDashboardViewCommand { get; }
         //public ICommand LoadCustomerDashboardViewCommand { get; }
         public ICommand LoadCreateAccountViewCommand { get; }
-        public ICommand LoadEditAccountViewCommand { get; }
+        public ICommand LoadEditCustomerViewCommand { get; }
         public ICommand LoadCloseAccountViewCommand { get; }
-        //public ICommand LoadAccountOperationViewCommand { get; }
+        public ICommand LoadAccountOperationViewCommand { get; }
         //public ICommand LoadCreditCardViewCommand { get; }
         //public ICommand LoadCertificateViewCommand { get; }
 
@@ -38,9 +38,9 @@ namespace BankingSystem.ViewModel
             LoadDashboardViewCommand = new RelayCommand(o => CurrentView = new DashboardView(bankSystem));
             //LoadCustomerDashboardViewCommand = new RelayCommand(o => CurrentView = new CustomerDashboardView(reportingService));
             LoadCreateAccountViewCommand = new RelayCommand(o => CurrentView = new CreateAccountView(bankSystem));
-            LoadEditAccountViewCommand = new RelayCommand(o => CurrentView = new EditCustomerView(bankSystem));
+            LoadEditCustomerViewCommand = new RelayCommand(o => CurrentView = new EditCustomerView(bankSystem));
             LoadCloseAccountViewCommand = new RelayCommand(o => CurrentView = new CloseAccountView(bankSystem));
-            //LoadAccountOperationViewCommand = new RelayCommand(o => CurrentView = new AccountOperationView(accountService));
+            LoadAccountOperationViewCommand = new RelayCommand(o => CurrentView = new AccountOperationView(bankSystem));
             //LoadCreditCardViewCommand = new RelayCommand(o => CurrentView = new CreditCardView(bankProdService));
             //LoadCertificateViewCommand = new RelayCommand(o => CurrentView = new CertificateView(bankProdService));
             CurrentView = new HomeView();

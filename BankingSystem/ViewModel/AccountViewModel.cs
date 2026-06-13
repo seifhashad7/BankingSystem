@@ -126,8 +126,7 @@ namespace BankingSystem.ViewModel
 
                 var newCustomer = _bankSystem.RegisterCustomer(Name, Age, Gender, Address, NationalId, PhoneNumber);
 
-                //TODO
-                //_accountService.OpenAccount(newCustomer.Id, AccountType, InitialBalance);
+                _bankSystem.OpenAccount(newCustomer.Id, AccountType, InitialBalance, DateTime.Now);
 
                 MessageBox.Show("Account Created successfully!");
             }
@@ -138,7 +137,7 @@ namespace BankingSystem.ViewModel
             }
             else if (activeView == "CloseMode")
             {
-                _bankSystem.CloseCustomer(Id);
+                _bankSystem.DeleteAccount(Id);
                 MessageBox.Show("Account Closed successfully");
             }
         }

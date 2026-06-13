@@ -69,7 +69,8 @@ namespace Bank.Model.DAL
         public int InsertCustomer(Customer customer)
         {
             string query = "INSERT into customers (Name, Age, Gender, Address, PhoneNumber, NationalId) " +
-                "           values (@name, @age, @gender, @address, @phonenumber, @nationalid)";
+                "           values (@name, @age, @gender, @address, @phonenumber, @nationalid);" +
+                "SELECT last_insert_id();";
 
             using (MySqlConnection conn = new MySqlConnection(_connectionString))
             using(MySqlCommand cmd = new MySqlCommand(query, conn))

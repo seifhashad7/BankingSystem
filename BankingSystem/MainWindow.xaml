@@ -35,7 +35,7 @@
                 <Button Command="{Binding LoadDashboardViewCommand}">Main Dashboard</Button>
                 <Button Command="{Binding LoadCustomerDashboardViewCommand}">Customer Dashboard</Button>
                 <Button Command="{Binding LoadCreateAccountViewCommand}">Create Account</Button>
-                <Button Command="{Binding LoadEditAccountViewCommand}">Edit Account</Button>
+                <Button Command="{Binding LoadEditCustomerViewCommand}">Edit Customer</Button>
                 <Button Command="{Binding LoadCloseAccountViewCommand}">Close Account</Button>
                 <Button Command="{Binding LoadAccountOperationViewCommand}">Account Operations</Button>
                 <Button Command="{Binding LoadCreditCardViewCommand}">Credit Card Operations</Button>

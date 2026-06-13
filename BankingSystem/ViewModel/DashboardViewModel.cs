@@ -21,21 +21,21 @@ namespace BankingSystem.ViewModel
         private UserControl? _currentView;
         private IEnumerable _currentGridData;
         private ObservableCollection<Customer> _customers;
-        //private ObservableCollection<Account> _accounts;
+        private ObservableCollection<Account> _accounts;
         //private ObservableCollection<BankService> _services;
         //private ObservableCollection<Transaction>  _transactions;
 
         public ICommand LoadCustomersDataCommand { get; }
-        //public ICommand LoadAccountsDataCommand { get; }
-        //public ICommand LoadSalaryAccDataCommand { get; }
-        //public ICommand LoadSavingAccDataCommand { get; }
+        public ICommand LoadAccountsDataCommand { get; }
+        public ICommand LoadSalaryAccDataCommand { get; }
+        public ICommand LoadSavingAccDataCommand { get; }
         //public ICommand LoadServicesDataCommand { get; }
         //public ICommand LoadCreditCardsDataCommand { get; }
         //public ICommand LoadACertificatesDataCommand { get; }
         //public ICommand LoadStatsCommand { get; }
         //public ICommand LoadTransactionsCommand { get; }
         //public ICommand LoadHomeViewCommand { get; }
-        
+
         public IEnumerable CurrentGridData
         {
             get => _currentGridData;
@@ -48,11 +48,11 @@ namespace BankingSystem.ViewModel
             set => SetProperty(ref _customers, value);
         }
 
-        //public ObservableCollection<Account> Accounts
-        //{
-        //    get => _accounts;
-        //    set => SetProperty(ref _accounts, value);
-        //}
+        public ObservableCollection<Account> Accounts
+        {
+            get => _accounts;
+            set => SetProperty(ref _accounts, value);
+        }
 
         //public ObservableCollection<BankService> Services
         //{
@@ -85,9 +85,9 @@ namespace BankingSystem.ViewModel
             _customers = new ObservableCollection<Customer>();
             //Customers = new ObservableCollection<Customer>();
             LoadCustomersDataCommand = new RelayCommand(ExecuteLoadCustomersData);
-            //LoadAccountsDataCommand = new RelayCommand(ExecuteLoadAccountsData);
-            //LoadSalaryAccDataCommand = new RelayCommand(ExecuteLoadSalaryAccData);
-            //LoadSavingAccDataCommand = new RelayCommand(ExecuteLoadSavingAccData);
+            LoadAccountsDataCommand = new RelayCommand(ExecuteLoadAccountsData);
+            LoadSalaryAccDataCommand = new RelayCommand(ExecuteLoadSalaryAccData);
+            LoadSavingAccDataCommand = new RelayCommand(ExecuteLoadSavingAccData);
             //LoadServicesDataCommand = new RelayCommand(ExecuteLoadServicesData);
             //LoadCreditCardsDataCommand = new RelayCommand(ExecuteLoadCreditCardsData);
             //LoadACertificatesDataCommand = new RelayCommand(ExecuteLoadCertificatesData);
@@ -108,22 +108,22 @@ namespace BankingSystem.ViewModel
             CurrentGridData = Customers;
         }
 
-        //private void ExecuteLoadAccountsData(object o)
-        //{
-        //    Accounts = new ObservableCollection<Account>(_reportingService.GetAccounts());
-        //    CurrentGridData = Accounts;
-        //}
+        private void ExecuteLoadAccountsData(object o)
+        {
+            Accounts = new ObservableCollection<Account>(_bankSystem.GetAllAccounts());
+            CurrentGridData = Accounts;
+        }
 
-        //private void ExecuteLoadSalaryAccData(object o)
-        //{
-        //    Accounts = new ObservableCollection<Account>(_reportingService.GetSalaryAccounts());
-        //    CurrentGridData = Accounts;
-        //}
-        //private void ExecuteLoadSavingAccData(object o)
-        //{
-        //    Accounts = new ObservableCollection<Account>(_reportingService.GetSavingAccounts());
-        //    CurrentGridData = Accounts;
-        //}
+        private void ExecuteLoadSalaryAccData(object o)
+        {
+            Accounts = new ObservableCollection<Account>(_bankSystem.GetSalaryAccounts());
+            CurrentGridData = Accounts;
+        }
+        private void ExecuteLoadSavingAccData(object o)
+        {
+            Accounts = new ObservableCollection<Account>(_bankSystem.GetSavingAccounts());
+            CurrentGridData = Accounts;
+        }
         //private void ExecuteLoadServicesData(object o)
         //{
         //    Services = new ObservableCollection<BankService>(_reportingService.GetServices());

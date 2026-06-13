@@ -15,12 +15,14 @@ namespace Bank.Model.Managers
         private static Lazy<BankSystem> _instance;
         private readonly Logger _logger;
         private readonly CustomerManager _customerManager;
+        private readonly AccountManager _accountManager;
 
         //Hidden constructor to avoid creation of multiple objects
         private BankSystem(string connectionString)
         {
             _logger = new Logger();
             _customerManager = new CustomerManager(connectionString, _logger);
+            _accountManager = new AccountManager(connectionString, _logger);
         }
 
         public static void Initialize(string connString)
@@ -29,6 +31,7 @@ namespace Bank.Model.Managers
             {
                 //Refreshing cached data
                 _instance.Value._customerManager.Initialize();
+                _instance.Value._accountManager.Initialize();
                 string errorMsg = "BankSystem is already initialized";
                 _instance.Value._logger.LogError(errorMsg);
                 return;
@@ -38,6 +41,7 @@ namespace Bank.Model.Managers
             // Force first-time database load on creation
             _instance.Value._logger.LogInfo("Banking System Initialization Started");
             _instance.Value._customerManager.Initialize();
+            _instance.Value._accountManager.Initialize();
             //TODO: initialize other managers.
             _instance.Value._logger.LogInfo("Banking System Initialization Completed");
         }
@@ -89,10 +93,64 @@ namespace Bank.Model.Managers
             _customerManager.EditCustomerInfo(customer);
         }
 
-        public void CloseCustomer(int customerId)
+        public void DeleteCustomer(int customerId)
         {
             _customerManager.DeleteCustomer(customerId);
             // TODO: refresh Accounts and services after deleting their customer (holder)
+        }
+
+        // --- Accounts ---
+        public IReadOnlyList<Account> GetAllAccounts() => _accountManager.GetAccounts();
+        public int GetTotalAccounts()
+        {
+            return _accountManager.GetTotalAccounts();
+        }
+        public int OpenAccount(int customerId, AccountType accountType, decimal initialBalance, DateTime createdAt)
+        {
+            Account account = accountType == AccountType.Salary ? (Account)new SalaryAccount() : new SavingAccount();
+
+            account.CustomerId = customerId;
+            account.AccountType = accountType;
+            account.Balance = initialBalance;
+            account.CreatedAt = createdAt;
+
+            return _accountManager.OpenAccount(account);
+        }
+        public void DeleteAccount(int accountId)
+        {
+            _accountManager.DeleteAccount(accountId);
+        }
+        public decimal GetBalance(int accountId)
+        {
+            return _accountManager.GetBalance(accountId);
+        }
+        public IReadOnlyList<Account> GetSalaryAccounts()
+        {
+            return _accountManager.GetAccountsByType(AccountType.Salary);
+        }
+        public IReadOnlyList<Account> GetSavingAccounts()
+        {
+            return _accountManager.GetAccountsByType(AccountType.Saving);
+        }
+        public IReadOnlyList<Account> GetAccountsPerCustomer(int customerId)
+        {
+            return _accountManager.GetAccountsPerCustomer(customerId);
+        }
+        public int GetTotalSalaryAccounts()
+        {
+            return _accountManager.GetTotalAccountsByType(AccountType.Salary);
+        }
+        public int GetTotalSavingAccounts()
+        {
+            return _accountManager.GetTotalAccountsByType(AccountType.Saving);
+        }
+        public void Depoist(int accountId, decimal amount)
+        {
+            _accountManager.PerformTransaction(accountId, amount, TransactionType.Depoist);
+        }
+        public void Withdraw(int accountId, decimal amount)
+        {
+            _accountManager.PerformTransaction(accountId, amount, TransactionType.Withdrawal);
         }
 
     }

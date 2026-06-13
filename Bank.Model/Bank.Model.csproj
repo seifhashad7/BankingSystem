@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\AccountDAL.cs" />
     <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Managers\BankSystem.cs" />
     <Compile Include="DAL\CustomerDAL.cs" />
