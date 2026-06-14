@@ -1,4 +1,4 @@
-﻿using Bank.Model.Managers;
+using Bank.Model.Managers;
 using BankingSystem.Commands;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace BankingSystem.ViewModel
         private decimal _amount;
         private decimal _balance;
 
-        public ICommand DepoistCommand { get; }
+        public ICommand DepositCommand { get; }
         public ICommand WithdrawCommand { get; }
         public ICommand GetBalanceCommand { get; }
 
@@ -40,15 +40,15 @@ namespace BankingSystem.ViewModel
         public AccountOperationViewModel(BankSystem bankSystem)
         {
             _bankSystem = bankSystem;
-            DepoistCommand = new RelayCommand(ExecuteDepoistCommand);
+            DepositCommand = new RelayCommand(ExecuteDepositCommand);
             WithdrawCommand = new RelayCommand(ExecuteWithdrawCommand);
             GetBalanceCommand = new RelayCommand(ExecuteGetBalanceCommand);
         }
 
-        private void ExecuteDepoistCommand(object o)
+        private void ExecuteDepositCommand(object o)
         {
-            _bankSystem.Depoist(Id, Amount);
-            MessageBox.Show("Depoist operation done successfully!");
+            _bankSystem.Deposit(Id, Amount);
+            MessageBox.Show("Deposit operation done successfully!");
         }
         private void ExecuteWithdrawCommand(object o)
         {

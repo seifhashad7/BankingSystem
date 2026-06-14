@@ -59,7 +59,7 @@ namespace Bank.Model.DAL
             return accounts;
         }
 
-        public int OpenAccount(Account account)
+        public Account OpenAccount(Account account)
         {
             string query = @"INSERT INTO accounts (CustomerId, AccountType, Balance, CreatedAt) VALUES (@customerid, @accounttype, @balance, @createdat); " +
                 "SELECT last_insert_id();";
@@ -74,7 +74,8 @@ namespace Bank.Model.DAL
                 cmd.Parameters.AddWithValue("@balance", account.Balance);
                 cmd.Parameters.AddWithValue("@createdat", account.CreatedAt);
 
-                return Convert.ToInt32(cmd.ExecuteScalar());
+                account.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                return account;
             }
         }
 

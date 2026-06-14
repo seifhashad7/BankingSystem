@@ -1,0 +1,32 @@
+[2026-06-15 12:52:22] [INFO] Banking System Initialization Started
+[2026-06-15 12:52:22] [INFO] Initializing Customer cache from Database.
+[2026-06-15 12:52:23] [INFO] Initializing Account cache from Database.
+[2026-06-15 12:52:23] [INFO] Initializing BankService cache from Database.
+[2026-06-15 12:52:23] [INFO] Banking System Initialization Completed
+[2026-06-15 12:52:23] [INFO] Registered New Customer with Name:Dr. Shereef Hamdy Id: 12
+[2026-06-15 12:52:23] [INFO] Successfully opened Salary account for Customer 12 (Account ID: 0)
+[2026-06-15 12:52:23] [INFO] Successfully opened Saving account for Customer 12 (Account ID: 0)
+[2026-06-15 12:52:23] [OPERATION] : Deposit AccountId: 9, Amount: 1000
+[2026-06-15 12:52:23] [OPERATION] : Withdrawal AccountId: 9, Amount: 200
+[2026-06-15 12:52:23] [OPERATION] : Deposit AccountId: 10, Amount: 1000
+[2026-06-15 12:52:23] [OPERATION] : Withdrawal AccountId: 10, Amount: 300
+[2026-06-15 12:52:23] [INFO] Successfully issued CreditCard for Customer 12 (Service ID: 3)
+[2026-06-15 12:52:23] [ERROR] Principal amount should be min. of 1000 L.E. and its multiple
+[2026-06-15 12:53:40] [INFO] Banking System Initialization Started
+[2026-06-15 12:53:40] [INFO] Initializing Customer cache from Database.
+[2026-06-15 12:53:41] [INFO] Initializing Account cache from Database.
+[2026-06-15 12:53:41] [INFO] Initializing BankService cache from Database.
+[2026-06-15 12:53:41] [INFO] Banking System Initialization Completed
+[2026-06-15 12:53:41] [ERROR] Registeration failed! Customer with NationalId: 3091985923456 already exists!
+[2026-06-15 12:54:59] [INFO] Banking System Initialization Started
+[2026-06-15 12:54:59] [INFO] Initializing Customer cache from Database.
+[2026-06-15 12:54:59] [INFO] Initializing Account cache from Database.
+[2026-06-15 12:54:59] [INFO] Initializing BankService cache from Database.
+[2026-06-15 12:54:59] [INFO] Banking System Initialization Completed
+[2026-06-15 12:54:59] [INFO] Successfully opened Salary account for Customer 12 (Account ID: 0)
+[2026-06-15 12:54:59] [INFO] Successfully opened Saving account for Customer 12 (Account ID: 0)
+[2026-06-15 12:54:59] [OPERATION] : Deposit AccountId: 11, Amount: 1000
+[2026-06-15 12:54:59] [OPERATION] : Withdrawal AccountId: 11, Amount: 200
+[2026-06-15 12:54:59] [OPERATION] : Deposit AccountId: 12, Amount: 1000
+[2026-06-15 12:54:59] [OPERATION] : Withdrawal AccountId: 12, Amount: 300
+[2026-06-15 12:54:59] [ERROR] Principal amount should be min. of 1000 L.E. and its multiple

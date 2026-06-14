@@ -63,6 +63,21 @@ namespace Bank.Model.Managers
             }
         }
 
+        private void EnsureCustomerExists(int customerId)
+        {
+            if (!_customerManager.GetCustomers().Any(c => c.Id == customerId))
+            {
+                throw new ArgumentException($"Customer with ID {customerId} does not exist.");
+            }
+        }
+
+        private void EnsureAccountExists(int accountId)
+        {
+            if (!_accountManager.GetAccounts().Any(a => a.Id == accountId))
+            {
+                throw new ArgumentException($"Account with ID {accountId} does not exist.");
+            }
+        }
 
         // --- Customers ---
         public IReadOnlyList<Customer> GetAllCustomers() => _customerManager.GetCustomers();
@@ -83,6 +98,7 @@ namespace Bank.Model.Managers
 
         public void UpdateCustomer(int customerId, string newName, int newAge, Gender newGender, string newAddress, string newNationalId, string newPhoneNumber)
         {
+            EnsureCustomerExists(customerId);
             Customer customer = new Customer
             {
                 Id = customerId,
@@ -98,6 +114,7 @@ namespace Bank.Model.Managers
 
         public void DeleteCustomer(int customerId)
         {
+            EnsureCustomerExists(customerId);
             _customerManager.DeleteCustomer(customerId);
             // TODO: refresh Accounts and services after deleting their customer (holder)
         }
@@ -108,8 +125,9 @@ namespace Bank.Model.Managers
         {
             return _accountManager.GetTotalAccounts();
         }
-        public int OpenAccount(int customerId, AccountType accountType, decimal initialBalance, DateTime createdAt)
+        public Account OpenAccount(int customerId, AccountType accountType, decimal initialBalance, DateTime createdAt)
         {
+            EnsureCustomerExists(customerId);
             Account account = accountType == AccountType.Salary ? (Account)new SalaryAccount() : new SavingAccount();
 
             account.CustomerId = customerId;
@@ -121,10 +139,12 @@ namespace Bank.Model.Managers
         }
         public void DeleteAccount(int accountId)
         {
+            EnsureAccountExists(accountId);
             _accountManager.DeleteAccount(accountId);
         }
         public decimal GetBalance(int accountId)
         {
+            EnsureAccountExists(accountId);
             return _accountManager.GetBalance(accountId);
         }
         public IReadOnlyList<Account> GetSalaryAccounts()
@@ -137,6 +157,7 @@ namespace Bank.Model.Managers
         }
         public IReadOnlyList<Account> GetAccountsPerCustomer(int customerId)
         {
+            EnsureCustomerExists(customerId);
             return _accountManager.GetAccountsPerCustomer(customerId);
         }
         public int GetTotalSalaryAccounts()
@@ -147,12 +168,14 @@ namespace Bank.Model.Managers
         {
             return _accountManager.GetTotalAccountsByType(AccountType.Saving);
         }
-        public void Depoist(int accountId, decimal amount)
+        public void Deposit(int accountId, decimal amount)
         {
-            _accountManager.PerformTransaction(accountId, amount, TransactionType.Depoist);       
+            EnsureAccountExists(accountId);
+            _accountManager.PerformTransaction(accountId, amount, TransactionType.Deposit);       
         }
         public void Withdraw(int accountId, decimal amount)
         {
+            EnsureAccountExists(accountId);
             _accountManager.PerformTransaction(accountId, amount, TransactionType.Withdrawal);
         }
 
@@ -164,11 +187,13 @@ namespace Bank.Model.Managers
         }
         public IReadOnlyList<Transaction> GetTransactionsPerAccount(int accountId)
         {
+            EnsureAccountExists(accountId);
             return _accountManager.GetTransactionsPerAccount(accountId);
         }
 
         public int GetTotalTransactionsPerAccount(int accountId)
         {
+            EnsureAccountExists(accountId);
             return _accountManager.GetTotalTransactionsPerAccount(accountId);
         }
 
@@ -181,26 +206,32 @@ namespace Bank.Model.Managers
         public int GetTotalCertificates() => _serviceManager.GetTotalCertificates();
         public CreditCard IssueCreditCard(int customerId, decimal cashLimit)
         {
+            EnsureCustomerExists(customerId);
             return _serviceManager.IssueCreditCard(customerId, cashLimit);
         }
         public Certificate IssueCertificate(int customerId, int period, decimal principalAmount) 
         {
+            EnsureCustomerExists(customerId);
             return _serviceManager.IssueCertificate(customerId, period, principalAmount);
         }
         public CreditCard UpdateCreditCardLimit(int customerId, decimal newCreditCardLimit)
         {
+            EnsureCustomerExists(customerId);
             return _serviceManager.UpdateCreditCardLimit(customerId, newCreditCardLimit);
         }
         public Certificate ModifyCertificate(int customerId, int certificateId, int newPeriod, decimal newPrice) 
         {
+            EnsureCustomerExists(customerId);
             return _serviceManager.ModifyCertificate(customerId, certificateId, newPeriod, newPrice);
         } 
         public void deleteCertificate(int customerId, int certificateId) 
         {
+            EnsureCustomerExists(customerId);
             _serviceManager.deleteCertificate(customerId, certificateId);
         }
         public IReadOnlyList<BankService> GetBankServicesPerCustomer(int customerId)
         {
+            EnsureCustomerExists(customerId);
             return _serviceManager.GetBankServicesPerCustomer(customerId);
         }
 

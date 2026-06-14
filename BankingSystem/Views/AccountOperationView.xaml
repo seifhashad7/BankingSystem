@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BankingSystem.Views.AccountOperationView"
+<UserControl x:Class="BankingSystem.Views.AccountOperationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -38,7 +38,7 @@
                     </Style.Setters>
                 </Style>
             </WrapPanel.Resources>
-            <Button Command="{Binding DepoistCommand}"> Depoist </Button>
+            <Button Command="{Binding DepositCommand}"> Deposit </Button>
             <Button Command="{Binding WithdrawCommand}"> Withdraw </Button>
             <Button Command="{Binding GetBalanceCommand}"> Get Balance </Button>
         </WrapPanel>

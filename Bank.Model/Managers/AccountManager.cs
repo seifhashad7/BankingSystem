@@ -1,4 +1,4 @@
-﻿using Bank.Model.DAL;
+using Bank.Model.DAL;
 using Bank.Model.Entities;
 using Bank.Model.Logging;
 using MySql.Data.MySqlClient;
@@ -46,7 +46,7 @@ namespace Bank.Model.Managers
             return _transactionsCache.Count();
         }
 
-        public int OpenAccount(Account newAccount)
+        public Account OpenAccount(Account newAccount)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Bank.Model.Managers
             catch(Exception ex)
             {
                 string errorMsg = $"Database issue on deleting account with Id: {accountId}";
-                _logger.LogError(errorMsg);
+                _logger.LogError(errorMsg, ex);
                 throw new InvalidOperationException(errorMsg);
             }
         }
@@ -122,7 +122,7 @@ namespace Bank.Model.Managers
                 throw new ArgumentException(errorMsg);
             }
 
-            if(transactionType == TransactionType.Depoist)
+            if(transactionType == TransactionType.Deposit)
             {
                 account.Balance += amount;
             }
@@ -154,7 +154,7 @@ namespace Bank.Model.Managers
             catch(Exception ex)
             {
                 string errorMsg = $"Database error on performing {transactionType} transaction for account {accountId}";
-                if (transactionType == TransactionType.Depoist) account.Balance -= amount;
+                if (transactionType == TransactionType.Deposit) account.Balance -= amount;
                 else account.Balance += amount;
                 _logger.LogError(errorMsg, ex);
             }

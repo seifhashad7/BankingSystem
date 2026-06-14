@@ -44,6 +44,20 @@ namespace Bank.Model.Managers
         public int  GetTotalCertificates() => _servicesCache.OfType<Certificate>().Count();
         public CreditCard IssueCreditCard(int customerId, decimal cashLimit)
         {
+            if (_servicesCache.OfType<CreditCard>().Any(c => c.CustomerId == customerId))
+            {
+                string errorMsg = $"Customer {customerId} already has a Credit Card. Only one card is allowed.";
+                _logger.LogError(errorMsg);
+                throw new InvalidOperationException(errorMsg);
+            }
+
+            if(cashLimit < 50000 || cashLimit > 250000)
+            {
+                string errorMsg = "Cash limit is out of range, min CashLimit is 50000 L.E., Max CashLimit is 250000 L.E.";
+                _logger.LogError(errorMsg);
+                throw new ArgumentOutOfRangeException(errorMsg);
+            }
+
             var cc = new CreditCard
             {
                 CustomerId = customerId,
@@ -69,6 +83,20 @@ namespace Bank.Model.Managers
 
         public Certificate IssueCertificate(int customerId, int period, decimal principalAmount)
         {
+            if(principalAmount < 1000 || principalAmount % 1000 != 0)
+            {
+                string errorMsg = "Principal amount should be min. of 1000 L.E. and its multiple";
+                _logger.LogError(errorMsg);
+                throw new ArgumentOutOfRangeException(errorMsg);
+            }
+
+            if(period != 1 && period != 3 && period != 5)
+            {
+                string errorMsg = "Period should be 1 year, 3 years or 5 years";
+                _logger.LogError(errorMsg);
+                throw new ArgumentOutOfRangeException(errorMsg);
+            }
+
             var cert = new Certificate
             {
                 CustomerId = customerId,
@@ -95,6 +123,13 @@ namespace Bank.Model.Managers
 
         public CreditCard UpdateCreditCardLimit(int customerId, decimal newCreditCardLimit)
         {
+            if(newCreditCardLimit < 50000 || newCreditCardLimit > 250000)
+            {
+                string errorMsg = "Cash limit is out of range, min CashLimit is 50000 L.E., Max CashLimit is 250000 L.E.";
+                _logger.LogError(errorMsg);
+                throw new ArgumentOutOfRangeException(errorMsg);
+            }
+
             var cc = _servicesCache.OfType<CreditCard>().FirstOrDefault(c => c.CustomerId == customerId);
             if (cc == null)
             {
@@ -119,6 +154,20 @@ namespace Bank.Model.Managers
 
         public Certificate ModifyCertificate(int customerId, int certificateId, int newPeriod, decimal newPrice)
         {
+            if(newPrice < 1000 || newPrice % 1000 != 0)
+            {
+                string errorMsg = "Principal amount should be min. of 1000 L.E. and its multiple";
+                _logger.LogError(errorMsg);
+                throw new ArgumentOutOfRangeException(errorMsg);
+            }
+
+            if(newPeriod != 1 && newPeriod != 3 && newPeriod != 5)
+            {
+                string errorMsg = "Period should be 1 year, 3 years or 5 years";
+                _logger.LogError(errorMsg);
+                throw new ArgumentOutOfRangeException(errorMsg);
+            }
+
             var cert = _servicesCache.OfType<Certificate>().FirstOrDefault(c => c.Id == certificateId && c.CustomerId == customerId);
             if (cert == null)
             {
