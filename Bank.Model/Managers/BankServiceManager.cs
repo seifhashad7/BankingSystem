@@ -29,6 +29,14 @@ namespace Bank.Model.Managers
         public IReadOnlyList<BankService> GetServices() => _servicesCache.AsReadOnly();
         public IReadOnlyList<CreditCard> GetCreditCards() => _servicesCache.OfType<CreditCard>().ToList().AsReadOnly();
         public IReadOnlyList<Certificate> GetCertificates() => _servicesCache.OfType<Certificate>().ToList().AsReadOnly();
+
+        public decimal GetTotalServiceAssets()
+        {
+            decimal totalCashLimit = _servicesCache.OfType<CreditCard>().Sum(c => c.CashLimit);
+            decimal totalPrincipalAmount = _servicesCache.OfType<Certificate>().Sum(c => c.PrincipalAmount);
+            return totalCashLimit + totalPrincipalAmount;
+        }
+
         public IReadOnlyList<BankService> GetBankServicesPerCustomer(int customerId) => _servicesCache.Where(s => s.CustomerId == customerId).ToList().AsReadOnly();
         public IReadOnlyList<BankService> GetCertificatesPerCustomer(int customerId) => _servicesCache.OfType<Certificate>().Where(s => s.CustomerId == customerId).ToList().AsReadOnly();
         public int  GetTotalServices() => _servicesCache.Count();

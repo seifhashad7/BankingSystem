@@ -149,7 +149,7 @@ namespace BankingSystem.ViewModel
                 new TableSet { Category="Credit Cards", RecordCounts= _bankSystem.GetTotalCreditCards()},
                 new TableSet { Category="Certificates", RecordCounts= _bankSystem.GetTotalCertificates()},
                 new TableSet { Category="Transactions", RecordCounts= _bankSystem.GetTotalTransactions()},
-                //TODO: new TableSet { Category="Assets", RecordCounts= _bankSystem.GetTotalAssets()}
+                new TableSet { Category="Assets", RecordCounts= _bankSystem.GetTotalAssets()}
             };
 
             CurrentGridData = stats;

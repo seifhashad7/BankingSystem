@@ -203,5 +203,17 @@ namespace Bank.Model.Managers
         {
             return _serviceManager.GetBankServicesPerCustomer(customerId);
         }
+
+        // --- Assets ---
+        public decimal GetTotalAssets()
+        {
+            decimal totalBalance = 0m;
+            foreach(var acc in GetAllAccounts())
+            {
+                totalBalance += acc.Balance;
+            }
+            totalBalance += _serviceManager.GetTotalServiceAssets();
+            return totalBalance;
+        }
     }
 }
